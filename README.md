@@ -4,7 +4,7 @@ Schedules and publishes to two Instagram Business accounts from one queue.
 
 | | DK Lighting | Wegraphers |
 |---|---|---|
-| Account | [@dklighitngpk](https://www.instagram.com/dklighitngpk/) | [@wegraphers4](https://www.instagram.com/wegraphers4/) |
+| Account | [@dklightingpk](https://www.instagram.com/dklightingpk/) | [@wegraphers_](https://www.instagram.com/wegraphers_/) |
 | Media | 50 images | 25 reels |
 | Cadence | 2/day — 11:30, 20:30 PKT | 3/day — 13:00, 18:30, 21:45 PKT |
 | Runway | 25 days | 9 days |
@@ -38,7 +38,7 @@ to spot.
 ## Layout
 
 ```
-config/brands.json          slots, timezone, start date, pins, {{WHATSAPP}}
+config/brands.json          slots, timezone, start date, pins, pinned IG ids
 content/dk/captions.json    50 captions, hand-written
 content/wegraphers/
   CAPTIONS.md               source of truth, hand-written
@@ -103,9 +103,14 @@ each is in `config/brands.json`. Once `instagram_manage_insights` has 2–3 week
 pull audience-online-by-hour and reach-per-post and rewrite the slots to fit these
 followers specifically.
 
-Worth knowing for that exercise: **@dklighitngpk follows 4 accounts against 8,771
-followers.** That ratio often indicates a bought audience, which would not be genuinely
-online at any particular hour. Trust the Insights reach data over the follower count.
+Worth knowing for that exercise: **@dklightingpk is a relaunch account** — 3 followers and
+0 posts at go-live. For the first few weeks nearly all reach will be non-follower reach
+from hashtags and Explore, so slot timing matters far less than it will later. Re-check
+the slots once there is an actual follower base to be online.
+
+The older **@dklighitngpk** (8,771 followers, misspelled handle) is not being posted to.
+It follows only 4 accounts against those 8,771 followers, a ratio that often indicates a
+bought audience — so if you ever switch back, trust Insights reach over follower count.
 
 ## Setup
 
@@ -116,8 +121,9 @@ online at any particular hour. Trust the Insights reach data over the follower c
 3. Permissions: `instagram_basic`, `instagram_content_publish`, `instagram_manage_insights`,
    `pages_show_list`, `pages_read_engagement`, `business_management`.
 4. Generate a **System User token** (Business Settings → Users → System Users) with both
-   Pages and both Instagram accounts assigned. It does not expire; a Page token dies
-   every 60 days.
+   Instagram accounts assigned. It does not expire; a Page token dies every 60 days.
+   The Pages themselves do not need assigning — `config/brands.json` pins each
+   `ig_user_id`, so the publisher never relies on Page-based discovery.
 5. No App Review needed — with an admin role on the app, Development mode covers your
    own accounts.
 
