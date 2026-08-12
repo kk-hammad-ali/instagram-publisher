@@ -126,7 +126,14 @@ is already set to the raw.githubusercontent prefix.
 
 ## The scheduler
 
-A launchd agent runs the publisher every two minutes:
+A launchd agent runs the publisher every two minutes.
+
+**The project lives at `~/ig-publisher`, not in `~/Documents`, and must stay there.**
+macOS TCC blocks launchd agents from Documents, Desktop and Downloads — an agent pointed
+at a Documents path dies with `Operation not permitted` (exit 126) until `/bin/bash` is
+granted Full Disk Access. A folder directly in `$HOME` is unprotected, so no grant is
+needed. There is a symlink at the old Documents path for convenience; do not move the
+real directory back.
 
 ```bash
 launchctl load  ~/Library/LaunchAgents/com.dkwegraphers.igpublisher.plist   # start
