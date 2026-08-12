@@ -8,9 +8,15 @@ name: Publish scheduled Instagram posts
 # publish.py has a 3-hour grace window so a delayed run still posts rather than
 # skipping. Anything older than the grace window is skipped on purpose - a runner
 # that was down overnight should not wake up and dump six posts at once.
+# DISABLED. The Mac launchd agent (com.dkwegraphers.igpublisher) is the clock.
+# Two schedulers would double-post: each keeps its own state/published.json, so
+# neither would see what the other had already sent. Kept here as a documented
+# fallback - if the Mac is going to be off for a stretch, uncomment the schedule
+# below, push the current state/published.json first so CI knows what has gone
+# out, and unload the launchd agent.
 on:
-  schedule:
-    - cron: "*/15 * * * *"
+  # schedule:
+  #   - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:

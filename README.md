@@ -13,18 +13,27 @@ Schedules and publishes to two Instagram Business accounts from one queue.
 
 **Instagram has no scheduling API.** Facebook Pages accept a `scheduled_publish_time`;
 Instagram does not — a post happens the moment you call the endpoint. So the schedule is
-ours (`state/schedule.json`) and GitHub Actions is the clock.
+ours (`state/schedule.json`) and a launchd agent on this Mac is the clock, firing every
+two minutes.
 
-**Images need a public URL, reels do not.** The API fetches images itself, so each JPEG
-must sit at a public HTTPS address — and Google Drive share links will not work, since
-Drive answers with an HTML interstitial instead of image bytes. Reels take the resumable
-upload path, pushing bytes straight from the runner, so the videos need no hosting.
+**Images need a public URL, reels do not.** This asymmetry drives the whole setup. The
+API does not accept an image upload — you give it an `image_url` and Meta's servers fetch
+it, so every JPEG must sit at a public HTTPS address. (Google Drive share links do not
+work: Drive answers with an HTML interstitial instead of image bytes.) Reels are the
+opposite — resumable upload pushes bytes straight from this machine, so the 666MB of
+video never leaves it and is not in git.
 
-**Cron drift is designed around.** GitHub's scheduler runs late by 5–15 minutes under
-load. Slots already carry ±15 min of deliberate jitter (an exactly periodic posting
-pattern is cheap for spam heuristics to spot), and the publisher has a 3-hour grace
-window so a delayed run still posts. Past that window it skips — a runner that was down
-overnight should not wake up and dump six posts at once.
+That is the only reason a GitHub repo exists here. It is not running anything; it is
+serving `media/dk/*.jpg` over `raw.githubusercontent.com` so Instagram can fetch them.
+Any static public host would do the same job.
+
+**Misses are designed around.** The agent retries every two minutes, and a failed post is
+simply not recorded as published, so the next tick picks it up. `publish.py` carries a
+3-hour grace window: a slot missed while the Mac was asleep still goes out once it wakes,
+but anything older is skipped rather than fired absurdly late — a machine that was off
+overnight should not wake up and dump six posts at once. Slots also carry ±15 min of
+deliberate jitter, since an exactly periodic posting pattern is cheap for spam heuristics
+to spot.
 
 ## Layout
 
@@ -112,9 +121,24 @@ online at any particular hour. Trust the Insights reach data over the follower c
 5. No App Review needed — with an admin role on the app, Development mode covers your
    own accounts.
 
-Repo secrets: `META_ACCESS_TOKEN`, `MEDIA_BASE_URL`. Optional repo variable:
-`GRAPH_VERSION` (defaults to `v23.0`).
+Put the token in `.env` as `META_ACCESS_TOKEN` (the file is gitignored). `MEDIA_BASE_URL`
+is already set to the raw.githubusercontent prefix.
 
-Set the WhatsApp number in `config/brands.json` under `tokens.WHATSAPP`. Until it is set,
-all 50 DK posts fail validation by design rather than publishing "WhatsApp  for the
-trade list."
+## The scheduler
+
+A launchd agent runs the publisher every two minutes:
+
+```bash
+launchctl load  ~/Library/LaunchAgents/com.dkwegraphers.igpublisher.plist   # start
+launchctl unload ~/Library/LaunchAgents/com.dkwegraphers.igpublisher.plist  # stop
+launchctl list | grep igpublisher                                          # check
+tail -f state/publish.log                                                  # watch
+```
+
+The log only records runs that published something or failed — "nothing due" fires around
+720 times a day and would bury everything that matters.
+
+`.github/workflows/publish.yml` is present but its cron is **commented out**. Two
+schedulers would double-post, because each keeps its own `state/published.json` and
+neither would see the other's. It is kept as a documented fallback for a stretch where
+the Mac will be off.
