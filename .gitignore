@@ -1,0 +1,9 @@
+# Credentials - never commit.
+.env
+
+# Reels are 666MB and would sit in git history forever. They ship as GitHub
+# Release assets instead; see scripts/upload_reels_release.sh.
+media/wegraphers/
+
+state/normalize_reels.log
+.DS_Store

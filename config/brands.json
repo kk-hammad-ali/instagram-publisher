@@ -1,0 +1,50 @@
+{
+  "timezone": "Asia/Karachi",
+  "timezone_note": "PKT is UTC+5 year-round - Pakistan observes no daylight saving, so the UTC offset never moves and cron needs no seasonal correction.",
+  "start_date": "2026-08-13",
+
+  "jitter_minutes": 15,
+  "jitter_note": "Each slot is nudged by a deterministic +/- offset seeded from the post id. Deterministic so re-running the builder never reshuffles an already-published queue, and jittered so five posts a day do not land on the same clock minute forever - an exactly periodic pattern is one of the cheaper things for spam heuristics to spot.",
+
+  "brands": {
+    "dk": {
+      "name": "DK Lighting",
+      "handle": "dklighitngpk",
+      "media_type": "IMAGE",
+      "captions": "content/dk/captions.json",
+      "slots": ["11:30", "20:30"],
+      "slot_rationale": {
+        "11:30": "Late-morning desk lull. Trade buyers - electricians, dealers, contractors - are reachable between site visits, and this is the slot the wholesale-angled posts are aimed at.",
+        "20:30": "After dinner, the strongest consumer window in Pakistan. Home and decor buying intent peaks here, which suits the room-application and energy-saving posts."
+      },
+      "order": "interleave",
+      "order_note": "Round-robin across product groups so the six 15W panel variants never land on consecutive days. Nothing in DK's set is date-sensitive."
+    },
+    "wegraphers": {
+      "name": "Wegraphers",
+      "handle": "wegraphers4",
+      "media_type": "REELS",
+      "captions": "content/wegraphers/captions.json",
+      "slots": ["13:00", "18:30", "21:45"],
+      "slot_rationale": {
+        "13:00": "Lunch break scroll. Reels traffic is non-follower traffic, and midday is when it is cheapest to earn.",
+        "18:30": "Commute and early evening - the day's first long scroll session.",
+        "21:45": "Late-evening peak. Highest watch-through of the three, so the strongest films should land here."
+      },
+      "order": "sequential",
+      "order_note": "Strict post_no order, and it must stay that way. The file numbering (01=H3, 02=H2, 03=H1 ...) encodes the grid layout described in CAPTIONS.md: Instagram fills newest-first from the top left, so posting the right-hand tile of each row first is what makes the finished profile grid read left-to-right. Re-sorting this list scrambles the grid.",
+      "pins": {
+        "25": {
+          "date": "2026-08-14",
+          "slot": "13:00",
+          "reason": "A4 is the Azadi Sale promo, cut for 14 August. In strict post order it would fall around 21 August - a week after Independence Day, advertising a sale that has ended. Pinned to the day itself."
+        }
+      }
+    }
+  },
+
+  "tokens": {
+    "WHATSAPP": "",
+    "_comment": "DK's captions end on a WhatsApp call to action and carry a {{WHATSAPP}} placeholder. Set the number here in full international form, e.g. +92 300 1234567. The publisher refuses to post a caption with an unresolved placeholder rather than publishing '{{WHATSAPP}}' to 8.7k followers."
+  }
+}

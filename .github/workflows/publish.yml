@@ -1,0 +1,61 @@
+name: Publish scheduled Instagram posts
+
+# Instagram has no native scheduling, so this cron is the clock. It wakes every
+# 15 minutes, publishes anything that has fallen due, and commits the record.
+#
+# GitHub's scheduled runs drift by 5-15 minutes under load and occasionally more.
+# That is accounted for: slots carry +/-15 min of deliberate jitter anyway, and
+# publish.py has a 3-hour grace window so a delayed run still posts rather than
+# skipping. Anything older than the grace window is skipped on purpose - a runner
+# that was down overnight should not wake up and dump six posts at once.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Resolve accounts and validate captions, publish nothing"
+        type: boolean
+        default: true
+
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Publish due posts
+        env:
+          META_ACCESS_TOKEN: ${{ secrets.META_ACCESS_TOKEN }}
+          MEDIA_BASE_URL: ${{ vars.MEDIA_BASE_URL }}
+          REELS_BASE_URL: ${{ vars.REELS_BASE_URL }}
+          GRAPH_VERSION: ${{ vars.GRAPH_VERSION }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+        run: python3 scripts/publish.py
+
+      - name: Record what went out
+        if: ${{ !cancelled() && !inputs.dry_run }}
+        run: |
+          if git diff --quiet -- state/published.json; then
+            echo "nothing published this run"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/published.json
+          git commit -m "Record published posts $(date -u +%Y-%m-%dT%H:%MZ)"
+          # The cron fires every 15 min and a run can overlap a manual dispatch,
+          # so rebase onto whatever landed first rather than failing the push.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
