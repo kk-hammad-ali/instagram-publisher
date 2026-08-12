@@ -144,6 +144,7 @@ def make(key, brand, p, when, pinned=None):
         "brand": key,
         "brand_name": brand["name"],
         "handle": brand["handle"],
+        "ig_user_id": brand.get("ig_user_id"),
         "media_type": brand["media_type"],
         "media": p["media"],
         "product": p.get("product", ""),

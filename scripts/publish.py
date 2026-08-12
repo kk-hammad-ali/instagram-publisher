@@ -82,11 +82,17 @@ def resolve_accounts():
     return out
 
 
-def upload_reel(ig_id, path):
-    """Resumable upload: open a container, push the bytes, return the container."""
+def upload_reel(ig_id, path, caption):
+    """Resumable upload: open a container, push the bytes, return the container.
+
+    The caption goes in at creation time. A resumable container will not accept
+    a later POST of its fields - that comes back as "does not support this
+    operation" - so there is no second chance to attach it.
+    """
     container = api(f"{ig_id}/media", data={
         "media_type": "REELS",
         "upload_type": "resumable",
+        "caption": caption,
     })
     cid = container["id"]
 
@@ -148,15 +154,19 @@ def build_caption(entry, tokens):
 
 def publish_one(entry, accounts, tokens):
     handle = entry["handle"].lower()
-    acct = accounts.get(handle)
-    if not acct:
-        raise RuntimeError(
-            f"@{handle} is not reachable from this token. Visible: "
-            f"{sorted(accounts) or 'none'}. Check the Instagram account is a "
-            f"Business account, linked to its Page, and assigned to the app's "
-            f"Business Portfolio."
-        )
-    ig_id = acct["ig_id"]
+    # Prefer the id pinned in config. Page-based discovery only works when the
+    # Facebook Page is assigned to the system user, and here only the Instagram
+    # accounts are - so discovery finds Wegraphers and misses DK entirely.
+    ig_id = entry.get("ig_user_id")
+    if not ig_id:
+        acct = accounts.get(handle)
+        if not acct:
+            raise RuntimeError(
+                f"@{handle} is not reachable from this token and no ig_user_id "
+                f"is pinned in config/brands.json. Visible via Pages: "
+                f"{sorted(accounts) or 'none'}."
+            )
+        ig_id = acct["ig_id"]
     caption = build_caption(entry, tokens)
     path = os.path.join(ROOT, entry["media"])
 
@@ -173,8 +183,7 @@ def publish_one(entry, accounts, tokens):
                     f"missing {entry['media']} and REELS_BASE_URL is not set - "
                     f"reels are not kept in git, so the runner needs the release URL"
                 )
-            cid = upload_reel(ig_id, path)
-            api(cid, data={"caption": caption}, method="POST")
+            cid = upload_reel(ig_id, path, caption)
         wait_ready(cid)
     else:
         if not os.path.exists(path):
@@ -248,8 +257,15 @@ def main():
         print("META_ACCESS_TOKEN is not set", file=sys.stderr)
         return 1
 
-    accounts = resolve_accounts()
-    print(f"reachable Instagram accounts: {', '.join('@' + h for h in sorted(accounts)) or 'none'}")
+    # Informational only - every brand pins its ig_user_id, so a Page listing
+    # that comes back short (or fails) is not fatal.
+    try:
+        accounts = resolve_accounts()
+    except RuntimeError as exc:
+        accounts = {}
+        print(f"note: Page listing unavailable ({exc}); using pinned ig_user_ids")
+    print(f"via Pages: {', '.join('@' + h for h in sorted(accounts)) or 'none'}; "
+          f"pinned: {', '.join(sorted({e['handle'] for e in due if e.get('ig_user_id')}))}")
 
     if DRY:
         for e in due:

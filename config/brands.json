@@ -7,7 +7,7 @@
   "brands": {
     "dk": {
       "name": "DK Lighting",
-      "handle": "dklighitngpk",
+      "handle": "dklightingpk",
       "media_type": "IMAGE",
       "captions": "content/dk/captions.json",
       "slots": [
@@ -19,7 +19,9 @@
         "20:30": "After dinner, the strongest consumer window in Pakistan. Home and decor buying intent peaks here, which suits the room-application and energy-saving posts."
       },
       "order": "interleave",
-      "order_note": "Round-robin across product groups so the six 15W panel variants never land on consecutive days. Nothing in DK's set is date-sensitive."
+      "order_note": "Round-robin across product groups so the six 15W panel variants never land on consecutive days. Nothing in DK's set is date-sensitive.",
+      "ig_user_id": "17841414814224853",
+      "handle_note": "Two DK accounts exist. @dklighitngpk (id 17841434610178612) is the older one - 8,771 followers, 26 posts, dklighting.com.pk - but its handle is misspelled. @dklightingpk is the correctly-spelled relaunch account and is the chosen target as of 2026-08-12, starting from 3 followers and 0 posts."
     },
     "wegraphers": {
       "name": "Wegraphers",
@@ -45,10 +47,12 @@
           "reason": "A4 is the Azadi Sale promo, cut for 14 August. In strict post order it would fall around 21 August - a week after Independence Day, advertising a sale that has ended. Pinned to the day itself."
         }
       },
-      "handle_note": "Confirmed against the token on 2026-08-12: @wegraphers_ is 'Wegraphers content studio', 3,757 followers, wegraphers.com, bio matching the voice quoted in CAPTIONS.md. An earlier @wegraphers4 reference was wrong."
+      "handle_note": "Confirmed against the token on 2026-08-12: @wegraphers_ is 'Wegraphers content studio', 3,757 followers, wegraphers.com, bio matching the voice quoted in CAPTIONS.md. An earlier @wegraphers4 reference was wrong.",
+      "ig_user_id": "17841444575440223"
     }
   },
   "tokens": {
     "_comment": "No caption placeholders are in use. DK's captions carry no call to action, and Wegraphers' were written with theirs inline. Add a token here only if a caption needs substitution."
-  }
+  },
+  "id_note": "Instagram user IDs are pinned explicitly rather than discovered through /me/accounts. The system user has Full access on both Instagram accounts but neither Facebook Page is assigned to it, so Page-based discovery returns nothing for DK. Addressing the IG account directly sidesteps that, and is one less thing to break if Page assignments change."
 }

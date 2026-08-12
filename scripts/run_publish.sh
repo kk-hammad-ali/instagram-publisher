@@ -21,6 +21,21 @@ fi
 mkdir -p state
 LOG="state/publish.log"
 
+# A 28MB reel takes ~80s to upload, longer than the 2-minute tick, and a slow
+# run could still be publishing when the next fires. launchd normally will not
+# start a second copy, but a stale-tolerant lock is cheap insurance against
+# double-posting - the one failure mode here that cannot be undone.
+LOCK="state/.publish.lock"
+if ! mkdir "$LOCK" 2>/dev/null; then
+  # Break a lock left behind by a crash or a hard reboot.
+  if [ -n "$(find "$LOCK" -maxdepth 0 -mmin +30 2>/dev/null)" ]; then
+    rmdir "$LOCK" 2>/dev/null && mkdir "$LOCK" 2>/dev/null || exit 0
+  else
+    exit 0
+  fi
+fi
+trap 'rmdir "$LOCK" 2>/dev/null' EXIT INT TERM
+
 # Keep the log from growing without bound on a machine that runs this every
 # two minutes forever.
 if [ -f "$LOG" ] && [ "$(wc -c < "$LOG")" -gt 2000000 ]; then
