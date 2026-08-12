@@ -2,17 +2,18 @@
   "timezone": "Asia/Karachi",
   "timezone_note": "PKT is UTC+5 year-round - Pakistan observes no daylight saving, so the UTC offset never moves and cron needs no seasonal correction.",
   "start_date": "2026-08-13",
-
   "jitter_minutes": 15,
   "jitter_note": "Each slot is nudged by a deterministic +/- offset seeded from the post id. Deterministic so re-running the builder never reshuffles an already-published queue, and jittered so five posts a day do not land on the same clock minute forever - an exactly periodic pattern is one of the cheaper things for spam heuristics to spot.",
-
   "brands": {
     "dk": {
       "name": "DK Lighting",
       "handle": "dklighitngpk",
       "media_type": "IMAGE",
       "captions": "content/dk/captions.json",
-      "slots": ["11:30", "20:30"],
+      "slots": [
+        "11:30",
+        "20:30"
+      ],
       "slot_rationale": {
         "11:30": "Late-morning desk lull. Trade buyers - electricians, dealers, contractors - are reachable between site visits, and this is the slot the wholesale-angled posts are aimed at.",
         "20:30": "After dinner, the strongest consumer window in Pakistan. Home and decor buying intent peaks here, which suits the room-application and energy-saving posts."
@@ -22,10 +23,14 @@
     },
     "wegraphers": {
       "name": "Wegraphers",
-      "handle": "wegraphers4",
+      "handle": "wegraphers_",
       "media_type": "REELS",
       "captions": "content/wegraphers/captions.json",
-      "slots": ["13:00", "18:30", "21:45"],
+      "slots": [
+        "13:00",
+        "18:30",
+        "21:45"
+      ],
       "slot_rationale": {
         "13:00": "Lunch break scroll. Reels traffic is non-follower traffic, and midday is when it is cheapest to earn.",
         "18:30": "Commute and early evening - the day's first long scroll session.",
@@ -39,12 +44,11 @@
           "slot": "13:00",
           "reason": "A4 is the Azadi Sale promo, cut for 14 August. In strict post order it would fall around 21 August - a week after Independence Day, advertising a sale that has ended. Pinned to the day itself."
         }
-      }
+      },
+      "handle_note": "Confirmed against the token on 2026-08-12: @wegraphers_ is 'Wegraphers content studio', 3,757 followers, wegraphers.com, bio matching the voice quoted in CAPTIONS.md. An earlier @wegraphers4 reference was wrong."
     }
   },
-
   "tokens": {
-    "WHATSAPP": "",
-    "_comment": "DK's captions end on a WhatsApp call to action and carry a {{WHATSAPP}} placeholder. Set the number here in full international form, e.g. +92 300 1234567. The publisher refuses to post a caption with an unresolved placeholder rather than publishing '{{WHATSAPP}}' to 8.7k followers."
+    "_comment": "No caption placeholders are in use. DK's captions carry no call to action, and Wegraphers' were written with theirs inline. Add a token here only if a caption needs substitution."
   }
 }
