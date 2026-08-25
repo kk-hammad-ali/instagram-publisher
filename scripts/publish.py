@@ -40,6 +40,12 @@ MEDIA_BASE = os.environ.get("MEDIA_BASE_URL", "").strip().rstrip("/")
 # instead, which uploads a local file - that is how local testing works.
 REELS_BASE = os.environ.get("REELS_BASE_URL", "").strip().rstrip("/")
 DRY = os.environ.get("DRY_RUN", "") not in ("", "0", "false")
+# Brands listed here are held back: their posts are neither published nor
+# reported late, and the rest of the queue carries on untouched. Set when one
+# account needs to stop while another keeps running. Clearing the variable
+# resumes, but slots that passed while paused are outside the grace window by
+# then - rebuild the schedule to re-date them rather than expecting a catch-up.
+PAUSED = {b.strip().lower() for b in os.environ.get("PAUSED_BRANDS", "").split(",") if b.strip()}
 
 # A post is published if it is due now or fell due within this window. Anything
 # older is skipped rather than fired late - GitHub Actions cron can be delayed,
@@ -156,7 +162,7 @@ def publish_one(entry, accounts, tokens):
     handle = entry["handle"].lower()
     # Prefer the id pinned in config. Page-based discovery only works when the
     # Facebook Page is assigned to the system user, and here only the Instagram
-    # accounts are - so discovery finds Wegraphers and misses DK entirely.
+    # accounts are, so Page-based discovery returns nothing for DK.
     ig_id = entry.get("ig_user_id")
     if not ig_id:
         acct = accounts.get(handle)
@@ -238,20 +244,35 @@ def main():
         return 1 if bad else 0
 
     now = datetime.now(timezone.utc)
-    due, late = [], []
+    due, late, held = [], [], []
     for e in sched["posts"]:
         if e["id"] in done:
             continue
         when = datetime.strptime(e["publish_at_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
-        if when <= now:
-            (due if now - when <= GRACE else late).append(e)
+        if when > now:
+            continue
+        # Held before the late check on purpose: a paused brand must not accrue
+        # SKIP lines on every tick, and its posts stay unpublished either way.
+        if e["brand"] in PAUSED:
+            held.append(e)
+        elif now - when <= GRACE:
+            due.append(e)
+        else:
+            late.append(e)
 
     for e in late:
         print(f"SKIP  {e['id']} was due {e['publish_at_pkt']} PKT, outside the {GRACE} grace window")
 
+    # Appended to the nothing-due line rather than printed on its own, so the
+    # wrapper's "nothing due" filter still keeps a paused brand out of the log.
+    note = f" ({len(held)} held: {', '.join(sorted(PAUSED))})" if held else ""
+
     if not due:
-        print(f"nothing due at {now:%Y-%m-%d %H:%M} UTC")
+        print(f"nothing due at {now:%Y-%m-%d %H:%M} UTC{note}")
         return 0
+
+    if held:
+        print(f"HELD  {len(held)} post(s) for paused brand(s): {', '.join(sorted(PAUSED))}")
 
     if not TOKEN:
         print("META_ACCESS_TOKEN is not set", file=sys.stderr)

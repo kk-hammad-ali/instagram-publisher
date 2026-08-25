@@ -1,9 +1,12 @@
 # Credentials - never commit.
 .env
 
-# Reels are 666MB and would sit in git history forever. They ship as GitHub
-# Release assets instead; see scripts/upload_reels_release.sh.
-media/wegraphers/
-
-state/normalize_reels.log
+# The DK commercial is 95MB. Reels publish by resumable upload straight from
+# this machine, so unlike the stills they never need a public URL and must not
+# go in git - GitHub rejects blobs over 100MB outright.
+media/dk/*.mp4
 .DS_Store
+
+# Python bytecode
+__pycache__/
+*.pyc

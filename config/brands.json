@@ -1,9 +1,9 @@
 {
   "timezone": "Asia/Karachi",
   "timezone_note": "PKT is UTC+5 year-round - Pakistan observes no daylight saving, so the UTC offset never moves and cron needs no seasonal correction.",
-  "start_date": "2026-08-13",
-  "jitter_minutes": 15,
-  "jitter_note": "Each slot is nudged by a deterministic +/- offset seeded from the post id. Deterministic so re-running the builder never reshuffles an already-published queue, and jittered so five posts a day do not land on the same clock minute forever - an exactly periodic pattern is one of the cheaper things for spam heuristics to spot.",
+  "start_date": "2026-08-28",
+  "jitter_minutes": 12,
+  "jitter_note": "Each slot is nudged by a deterministic +/- offset seeded from the post id. Deterministic so re-running the builder never reshuffles an already-published queue, and jittered so posts do not land on the same clock minute forever - an exactly periodic pattern is one of the cheaper things for spam heuristics to spot. Cut from 15 to 12 minutes when the cadence went to 3/day, so a nudged slot cannot wander into its neighbour's.",
   "brands": {
     "dk": {
       "name": "DK Lighting",
@@ -12,47 +12,131 @@
       "captions": "content/dk/captions.json",
       "slots": [
         "11:30",
+        "16:30",
         "20:30"
       ],
       "slot_rationale": {
         "11:30": "Late-morning desk lull. Trade buyers - electricians, dealers, contractors - are reachable between site visits, and this is the slot the wholesale-angled posts are aimed at.",
-        "20:30": "After dinner, the strongest consumer window in Pakistan. Home and decor buying intent peaks here, which suits the room-application and energy-saving posts."
+        "16:30": "Mid-afternoon. Added when the cadence went to 3/day. It is the weakest of the three on paper, and it is the one to move first once Insights has audience-online-by-hour for this account.",
+        "20:30": "After dinner, the strongest consumer window in Pakistan. Home and decor buying intent peaks here, which suits the wall lights, bubble lights and strip."
       },
-      "order": "interleave",
-      "order_note": "Round-robin across product groups so the six 15W panel variants never land on consecutive days. Nothing in DK's set is date-sensitive.",
-      "ig_user_id": "17841414814224853",
-      "handle_note": "Two DK accounts exist. @dklighitngpk (id 17841434610178612) is the older one - 8,771 followers, 26 posts, dklighting.com.pk - but its handle is misspelled. @dklightingpk is the correctly-spelled relaunch account and is the chosen target as of 2026-08-12, starting from 3 followers and 0 posts."
-    },
-    "wegraphers": {
-      "name": "Wegraphers",
-      "handle": "wegraphers_",
-      "media_type": "REELS",
-      "captions": "content/wegraphers/captions.json",
-      "slots": [
-        "13:00",
-        "18:30",
-        "21:45"
-      ],
-      "slot_rationale": {
-        "13:00": "Lunch break scroll. Reels traffic is non-follower traffic, and midday is when it is cheapest to earn.",
-        "18:30": "Commute and early evening - the day's first long scroll session.",
-        "21:45": "Late-evening peak. Highest watch-through of the three, so the strongest films should land here."
-      },
-      "order": "sequential",
-      "order_note": "Strict post_no order, and it must stay that way. The file numbering (01=H3, 02=H2, 03=H1 ...) encodes the grid layout described in CAPTIONS.md: Instagram fills newest-first from the top left, so posting the right-hand tile of each row first is what makes the finished profile grid read left-to-right. Re-sorting this list scrambles the grid.",
-      "pins": {
-        "25": {
-          "date": "2026-08-14",
-          "slot": "13:00",
-          "reason": "A4 is the Azadi Sale promo, cut for 14 August. In strict post order it would fall around 21 August - a week after Independence Day, advertising a sale that has ended. Pinned to the day itself."
+      "order": "category",
+      "order_note": "Blocks are posted whole, one product category at a time, in the order listed below. Within a block, posts come out in id order - and the ids were assigned so that consecutive posts rotate through the sub-families in the caption file's 'group' field. That rotation is the fix for this catalogue's one real grid problem: DK's spec-sheet template makes every graphic in a category look alike, so running all five A60 bulbs together would put five near-identical tiles in a row. Rotating A60, BS, T-series, A80 breaks that up without breaking the category band.",
+      "grid_note": "Instagram lays the grid out three tiles to a row, so a block only reads as a clean band if its length is a multiple of 3 AND the blocks before it have not pushed it off a row boundary. One post already on the account is being kept - the All-in-One Lighting Solution reel - and it sits at the very bottom of the finished grid, occupying one tile of the bottom row. That is why the first block is 8 rather than 9: 8 new tiles plus the kept reel is exactly 3 rows, and every block after it is a clean multiple of 3. Change the first block's size and every band above it shifts. scripts/build_schedule.py prints the row maths on every run.",
+      "kept_tiles": 1,
+      "kept_tiles_note": "https://www.instagram.com/reel/DcdjLwMMlCd/ - posted 2026-08-25, 9 likes, 2 comments. The only thing on the account that is not being deleted.",
+      "reading_order_note": "Instagram fills the grid newest-first from the top left, so the profile reads in the REVERSE of posting order. The order below front-loads Panel and Flood, which are the strongest and most visually varied blocks, because ad spend starts on day one and the top of the grid during week one is whatever was just posted. It finishes on Wall Lights and Strip & Neon, the two most decorative blocks, because those end up at the TOP of the finished profile. The three small blocks - Bubble, Track, Street - sit in the middle where they are least conspicuous.",
+      "blocks": [
+        {
+          "name": "Panel Lights",
+          "categories": [
+            "Panel Lights"
+          ],
+          "row_note": "8 tiles, not 9, on purpose. Paired with the kept reel it fills the bottom 3 rows exactly. This is the launch-day block."
+        },
+        {
+          "name": "Flood Lights",
+          "categories": [
+            "Flood Lights"
+          ],
+          "row_note": "12 tiles, 4 rows. Alternates the Stone castings and the bubble-lens units so no two adjacent tiles are the same housing."
+        },
+        {
+          "name": "COB Lights",
+          "categories": [
+            "COB Lights"
+          ],
+          "row_note": "9 tiles, 3 rows. 7 products plus 2 alternate angles - COB Light 5W is held, its artwork reads 8W throughout."
+        },
+        {
+          "name": "Downlights",
+          "categories": [
+            "Downlights"
+          ],
+          "row_note": "18 tiles, 6 rows. 16 products plus 2 alternate angles - Downlight Smart 10W is held, its face diameter is blank on the artwork."
+        },
+        {
+          "name": "Tube Lights",
+          "categories": [
+            "Tube Lights"
+          ],
+          "row_note": "24 tiles, 8 rows. The largest block. Ids rotate square / round / D-shape / rod / T5 / T8 so the run does not read as 24 white sticks."
+        },
+        {
+          "name": "LED Bulbs",
+          "categories": [
+            "LED Bulbs"
+          ],
+          "row_note": "18 tiles, 6 rows. Ids rotate A60 / BS / T-series / A80 - the four bulb silhouettes - rather than climbing the wattage, which would group the identical-looking ones."
+        },
+        {
+          "name": "Bubble Lights",
+          "categories": [
+            "Bubble Lights"
+          ],
+          "row_note": "3 tiles, 1 row. Bubble Light 13W (Indoor) is held as a near-twin of the 13W."
+        },
+        {
+          "name": "Track Lights",
+          "categories": [
+            "Track Lights"
+          ],
+          "row_note": "3 tiles, 1 row. The whole category."
+        },
+        {
+          "name": "Street Lights",
+          "categories": [
+            "Street Lights"
+          ],
+          "row_note": "3 tiles, 1 row. The whole category."
+        },
+        {
+          "name": "Solar Lights",
+          "categories": [
+            "Solar Lights"
+          ],
+          "row_note": "6 tiles, 2 rows. Solar Street Light Mono is held - no wattage on its artwork. Alternates street heads and floods."
+        },
+        {
+          "name": "Strip & Neon Flex",
+          "categories": [
+            "Strip Lights",
+            "Neon Flex"
+          ],
+          "row_note": "9 tiles, 3 rows. Neon Flex has only 2 products and can never be a clean band alone, so it is merged into Strip, which takes 7 + 2 to exactly 3 rows."
+        },
+        {
+          "name": "Wall Lights",
+          "categories": [
+            "Wall Lights"
+          ],
+          "row_note": "9 tiles, 3 rows. Wall Light X155-12W White is held as the same fitting as the X155 black. Posted last, so it finishes at the top of the profile - it is the most decorative block in the range."
         }
-      },
-      "handle_note": "Confirmed against the token on 2026-08-12: @wegraphers_ is 'Wegraphers content studio', 3,757 followers, wegraphers.com, bio matching the voice quoted in CAPTIONS.md. An earlier @wegraphers4 reference was wrong.",
-      "ig_user_id": "17841444575440223"
+      ],
+      "ig_user_id": "17841414814224853",
+      "handle_note": "Two DK accounts exist. @dklighitngpk (id 17841434610178612) is the older one - 8,771 followers, dklighting.com.pk - but its handle is misspelled. @dklightingpk is the correctly-spelled relaunch account and is the chosen target as of 2026-08-12.",
+      "launch": {
+        "date": "2026-08-27",
+        "slots": [
+          "10:00",
+          "11:45",
+          "13:30",
+          "15:15",
+          "17:00",
+          "18:45",
+          "20:15",
+          "21:45"
+        ],
+        "note": "Day one is the whole Panel Lights block - 8 posts, hand-spaced from 10:00 to 21:45. With the kept reel that is three full rows on the profile before ad spend points at it. A grid two tiles deep converts badly. The steady 3/day cadence starts the next morning.",
+        "jitter_note": "No jitter is applied to these. They are already hand-spaced, and a +/-12 minute nudge on eight posts in one day can collide two of them.",
+        "today_note": "Run `python3 scripts/build_schedule.py --launch-today` to re-date this to today and respace the slots between now and 22:00. Needed because a slot more than three hours old is skipped rather than fired late, so a stale launch date silently drops most of day one."
+      }
     }
   },
   "tokens": {
-    "_comment": "No caption placeholders are in use. DK's captions carry no call to action, and Wegraphers' were written with theirs inline. Add a token here only if a caption needs substitution."
+    "_comment": "No caption placeholders are in use. DK's captions carry no call to action. Add a token here only if a caption needs substitution."
   },
-  "id_note": "Instagram user IDs are pinned explicitly rather than discovered through /me/accounts. The system user has Full access on both Instagram accounts but neither Facebook Page is assigned to it, so Page-based discovery returns nothing for DK. Addressing the IG account directly sidesteps that, and is one less thing to break if Page assignments change."
+  "id_note": "Instagram user IDs are pinned explicitly rather than discovered through /me/accounts. The system user has Full access on the Instagram account but the Facebook Page is not assigned to it, so Page-based discovery returns nothing for DK. Addressing the IG account directly sidesteps that, and is one less thing to break if Page assignments change.",
+  "catalogue_note": "The August 2026 catalogue replaced everything that came before it. The previous 51-post set - its captions, its media and the two-stage normalize/brand pipeline that produced it - was deleted on 2026-08-26 at the client's request. The new artwork is already 1254x1254 and already carries the DK lockup, so scripts/import_catalog.py replaces both old media scripts with a single format conversion.",
+  "start_date_note": "Only used when a brand has no launch burst. With one configured the steady run starts the day after the burst regardless, so this is kept in step with that to avoid confusion."
 }

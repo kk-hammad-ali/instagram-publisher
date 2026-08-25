@@ -1,157 +1,188 @@
-# Instagram publisher — DK Lighting & Wegraphers
+# Instagram publisher — DK Lighting
 
-Schedules and publishes to two Instagram Business accounts from one queue.
+Schedules and publishes stills to [@dklightingpk](https://www.instagram.com/dklightingpk/).
 
-| | DK Lighting | Wegraphers |
-|---|---|---|
-| Account | [@dklightingpk](https://www.instagram.com/dklightingpk/) | [@wegraphers_](https://www.instagram.com/wegraphers_/) |
-| Media | 50 images | 25 reels |
-| Cadence | 2/day — 11:30, 20:30 PKT | 3/day — 13:00, 18:30, 21:45 PKT |
-| Runway | 25 days | 9 days |
+| | |
+|---|---|
+| Media | 122 stills, one per product, from the 25 August 2026 catalogue |
+| Cadence | 8 on launch day, then 3/day — 11:30, 16:30, 20:30 PKT |
+| Runway | 39 days, 27 August → 4 October |
+| Status | **paused** — see [`RESUME.md`](RESUME.md) |
+
+The previous 51-post set was retired on 2026-08-26 along with its captions, its
+media and the two-stage normalize/brand pipeline that produced it. Git history
 
 ## Why the pieces are shaped this way
 
-**Instagram has no scheduling API.** Facebook Pages accept a `scheduled_publish_time`;
-Instagram does not — a post happens the moment you call the endpoint. So the schedule is
-ours (`state/schedule.json`) and a launchd agent on this Mac is the clock, firing every
-two minutes.
+**Instagram has no scheduling API.** Facebook Pages accept a
+`scheduled_publish_time`; Instagram does not — a post happens the moment you call
+the endpoint. So the schedule is ours (`state/schedule.json`) and a launchd agent
+on this Mac is the clock, firing every two minutes.
 
-**Images need a public URL, reels do not.** This asymmetry drives the whole setup. The
-API does not accept an image upload — you give it an `image_url` and Meta's servers fetch
-it, so every JPEG must sit at a public HTTPS address. (Google Drive share links do not
-work: Drive answers with an HTML interstitial instead of image bytes.) Reels are the
-opposite — resumable upload pushes bytes straight from this machine, so the 666MB of
-video never leaves it and is not in git.
+**Images need a public URL.** The API does not accept an image upload — you give
+it an `image_url` and Meta's servers fetch it, so every JPEG must sit at a public
+HTTPS address. (Google Drive share links do not work: Drive answers with an HTML
+interstitial instead of image bytes.) That is the only reason a GitHub repo
+exists here. It is not running anything; it is serving `media/dk/*.jpg` over
+`raw.githubusercontent.com`. Any static public host would do the same job.
 
-That is the only reason a GitHub repo exists here. It is not running anything; it is
-serving `media/dk/*.jpg` over `raw.githubusercontent.com` so Instagram can fetch them.
-Any static public host would do the same job.
+A useful consequence: Instagram fetches the image once, at publish time, and
+keeps its own copy. Re-running the import never alters a post already out.
 
-**Misses are designed around.** The agent retries every two minutes, and a failed post is
-simply not recorded as published, so the next tick picks it up. `publish.py` carries a
-3-hour grace window: a slot missed while the Mac was asleep still goes out once it wakes,
-but anything older is skipped rather than fired absurdly late — a machine that was off
-overnight should not wake up and dump six posts at once. Slots also carry ±15 min of
-deliberate jitter, since an exactly periodic posting pattern is cheap for spam heuristics
-to spot.
+**Misses are designed around.** The agent retries every two minutes, and a failed
+post is simply not recorded as published, so the next tick picks it up.
+`publish.py` carries a 3-hour grace window: a slot missed while the Mac was
+asleep still goes out once it wakes, but anything older is skipped rather than
+fired absurdly late. Slots also carry ±12 min of deterministic jitter, since an
+exactly periodic posting pattern is cheap for spam heuristics to spot.
+
+## The grid is the layout unit
+
+The run goes out **one product category at a time**, and two rules make a
+category read as a clean band on the profile:
+
+1. **Its posts are consecutive.** `order: "category"` in `config/brands.json`
+   does this; blocks are listed there in posting order.
+2. **The running tile total lands on a multiple of three.** Instagram's grid is
+   three wide. A block being a multiple of 3 is necessary but not sufficient —
+   what has to land on a boundary is the cumulative count, because one post is
+   being kept and it occupies the first tile position.
+
+```
+(kept reel)            1 tile     bottom row, oldest
+Panel Lights           8 tiles    3 rows in     <- 8, not 9, to absorb the reel
+Flood Lights          12 tiles    7 rows in
+COB Lights             9 tiles   10 rows in
+Downlights            18 tiles   16 rows in
+Tube Lights           24 tiles   24 rows in
+LED Bulbs             18 tiles   30 rows in
+Bubble Lights          3 tiles   31 rows in
+Track Lights           3 tiles   32 rows in
+Street Lights          3 tiles   33 rows in
+Solar Lights           6 tiles   35 rows in
+Strip & Neon Flex      9 tiles   38 rows in
+Wall Lights            9 tiles   41 rows in
+                     123 tiles   41 rows exactly
+```
+
+`build_schedule.py` prints this on every run and warns on any block that ends
+mid-row, so a drift shows up there rather than three weeks later on the profile.
+
+**The profile reads this list bottom-up.** Instagram fills the grid newest-first
+from the top left, so the block posted *last* finishes at the *top*. Panel and
+Flood lead because ad spend starts on day one and they are the most visually
+varied blocks; Wall Lights and Strip & Neon are held to the end because they are
+the most decorative and end up at the top of the finished profile. The three
+small blocks sit in the middle where they are least conspicuous.
+
+**Within a block, order rotates sub-families rather than climbing wattage.**
+This catalogue's one real grid problem is that DK's spec-sheet template makes
+every graphic in a category look alike — eighteen bulbs on the same teal layout
+read as one smear. Ids were assigned so consecutive posts step through the
+`group` field in the caption file: A60, BS, T-series, A80 for the bulbs; square,
+round, D-shape, rod, T5, T8 for the tubes. `build_schedule.py` sorts by id
+within a block, so that rotation is what reaches the grid.
+
+## Launch burst
+
+Day one is 8 posts — the whole Panel Lights block, hand-spaced 10:00 to 21:45.
+The account is being repopulated from zero before ad spend points at it, and a
+grid two tiles deep converts badly. No jitter is applied to these; the slots are
+already spaced, and ±12 minutes on eight posts in a day can collide two of them.
+
+`build_schedule.py --launch-today` re-dates the burst to today and respaces its
+slots between now and 22:00. Use it if the launch slips: a slot more than three
+hours old is skipped rather than fired late, so a stale launch date silently
+drops most of day one.
 
 ## Layout
 
 ```
-config/brands.json          slots, timezone, start date, pins, pinned IG ids
-content/dk/captions.json    50 captions, hand-written
-content/wegraphers/
-  CAPTIONS.md               source of truth, hand-written
-  captions.json             generated from it
-media/dk/*.jpg              normalized stills
-media/wegraphers/*.mp4      normalized reels
+config/brands.json          slots, launch burst, block order, row arithmetic
+content/dk/captions.json    122 posts, hand-written
+media/dk/*.jpg              1254x1254, served over raw.githubusercontent.com
+media/dk/*.mp4              the old unused commercial; gitignored
 state/schedule.json         the queue (generated)
 state/published.json        what has gone out (written by the runner)
-scripts/                    normalizers, parser, schedule builder, publisher
+state/DELETE-THESE.md       the 14 old posts to remove by hand, and the 1 to keep
 ```
 
 ## Commands
 
 ```bash
-./scripts/normalize_dk.sh                  # PNG -> JPEG, fix aspect ratios
-./scripts/normalize_reels.sh               # HEVC -> H.264, 4K -> 1080p
-python3 scripts/parse_wegraphers_captions.py   # CAPTIONS.md -> captions.json
-python3 scripts/build_schedule.py          # -> state/schedule.json
+python3 scripts/import_catalog.py [SRC]    # catalogue -> media/dk/*.jpg
+python3 scripts/build_schedule.py          # -> state/schedule.json, prints row maths
 python3 scripts/publish.py --validate      # check every caption + media file
 DRY_RUN=1 python3 scripts/publish.py       # resolve accounts, publish nothing
 python3 scripts/publish.py                 # publish what is due
 ```
 
-Edit captions or slots, then re-run `build_schedule.py`. It never re-queues anything
-already in `state/published.json`, and jitter is seeded from the post id so rebuilding
-does not reshuffle times for posts that already went out.
+Edit captions or blocks, then re-run `build_schedule.py`. It leaves out anything
+already in `state/published.json` — queued-and-skipped would still consume a
+day/slot and buy days of silence before the next new tile.
 
-## What the media pipeline fixed
+## The media pipeline
 
-**DK** — 49 of 50 files were PNG; the API accepts JPEG only. Two infographics were 2:3
-(0.667), below Instagram's 4:5 floor, so they are padded rather than cropped — cropping
-an infographic eats the text it exists to show. Pad colour is sampled from each image's
-own corner pixel, so the bars are invisible.
+`import_catalog.py` replaced `normalize_dk.sh` and `brand_dk.sh`, both of which
+existed to fix problems the August 2026 artwork does not have:
 
-**Wegraphers** — 13 of 26 reels were HEVC, which the API either rejects or visibly
-re-compresses; all are now H.264. Two were 4K (169MB and 165MB) and are downscaled to
-1080p, which is what Instagram serves anyway — 157MB became 30MB.
+- **Aspect.** The new graphics are already 1254×1254, inside Instagram's 4:5 –
+  1.91:1 window and square for the profile thumbnail. Three of 178 files are not
+  square; two of those are used, and they are padded to 1:1 against a blurred
+  copy of themselves — invisible on a flat background.
+- **Branding.** The artwork already carries the DK lockup top left. Stamping one
+  would double it up, so the whole logo pipeline (`prep_logo.py`,
+  `config/dk-logo.png`) is gone.
+- **Format.** Still needed: the source is PNG and the API takes JPEG only.
+
+Selection is one tile per product. The catalogue lists 178 files for 122
+products; the extras are alternate angles and eight are byte-identical
+duplicates. Posting all of them would put near-repeats side by side.
 
 ## Content notes
 
-**Reel order is load-bearing.** The file numbering (01=H3, 02=H2, 03=H1 …) encodes the
-grid layout described in `CAPTIONS.md`: Instagram fills newest-first from the top left,
-so posting the right-hand tile of each row first is what makes the finished profile grid
-read left to right. `build_schedule.py` preserves it — re-sorting scrambles the grid.
+**Five products are held back**, each with a written reason in
+`import_catalog.py`. Two are artwork faults found by reading the spec panel on
+every graphic:
 
-**Reel 22 (G3, Lushly Ice Pops) is withheld.** Its export carries a burned-in
-"NOT FOR ADVERTISMENT" watermark across the full runtime. The caption is written and
-waiting; drop in a clean export, re-run the normalizer and the builder, and it queues
-itself. Note that its absence leaves row G with two tiles instead of three, which shifts
-the grid from that point on.
+- **COB Light 5W** — the artwork reads 8W throughout: title, 112mm face, 3in
+  cut-out. It is the 8W fitting under a 5W name, and COB Light 8W already posts
+  it. (The same fault was present in the previous catalogue.)
+- **Downlight Smart 10W** — FACE DIAMETER is blank on the graphic, in both the
+  left column and the bottom bar. The 112mm and 120mm variants are unaffected.
 
-**Reel 25 (A4) is pinned to 14 August.** It is the Azadi Sale promo. In strict post order
-it would have landed around 21 August, advertising a finished sale.
+The other three are near-twins of a tile that does post. Three alternate angles
+were promoted to tiles of their own to keep the count at 122 and the blocks on
+row boundaries.
 
-**DK captions are interleaved by product group** so the six near-identical 15W panel
-images never run on consecutive days.
+**`LED Tube Light 24W 6FT Square`** is listed in CATALOG.csv as the 6FT unit and
+its artwork's length icon reads 4FT / 1.2M. The caption states no length until
+that is settled.
+
+**Every caption claim comes from that product's own spec panel.** No lumen, IP,
+lm/W, colour-temperature or warranty figure appears in a caption unless it is
+printed on the graphic it is attached to.
 
 ## Posting times
 
-Current slots are informed starting positions, not measured truth — the rationale for
-each is in `config/brands.json`. Once `instagram_manage_insights` has 2–3 weeks of data,
-pull audience-online-by-hour and reach-per-post and rewrite the slots to fit these
-followers specifically.
+Current slots are informed starting positions, not measured truth — the rationale
+for each is in `config/brands.json`. The 16:30 slot is the weakest of the three
+on paper and the one to move first. Once `instagram_manage_insights` has 2–3
+weeks of data, pull audience-online-by-hour and reach-per-post and rewrite the
+slots to fit these followers specifically.
 
-Worth knowing for that exercise: **@dklightingpk is a relaunch account** — 3 followers and
-0 posts at go-live. For the first few weeks nearly all reach will be non-follower reach
-from hashtags and Explore, so slot timing matters far less than it will later. Re-check
-the slots once there is an actual follower base to be online.
+Worth knowing for that exercise: **@dklightingpk is a relaunch account** — 8
+followers. For the first few weeks nearly all reach will be non-follower reach
+from hashtags and Explore, so slot timing matters far less than it will later.
 
-The older **@dklighitngpk** (8,771 followers, misspelled handle) is not being posted to.
-It follows only 4 accounts against those 8,771 followers, a ratio that often indicates a
-bought audience — so if you ever switch back, trust Insights reach over follower count.
+The older **@dklighitngpk** (8,771 followers, misspelled handle) is not being
+posted to. It follows only 4 accounts against those 8,771 followers, a ratio that
+often indicates a bought audience — so if you ever switch back, trust Insights
+reach over follower count.
 
 ## Setup
 
-1. Meta app: **Other → Business**, linked to the Business Portfolio that owns both Pages
-   and both Instagram accounts. Add the **Instagram** and **Facebook Login for Business**
-   products.
-2. Both Instagram accounts must be **Business** (not Creator) and linked to their Page.
-3. Permissions: `instagram_basic`, `instagram_content_publish`, `instagram_manage_insights`,
-   `pages_show_list`, `pages_read_engagement`, `business_management`.
-4. Generate a **System User token** (Business Settings → Users → System Users) with both
-   Instagram accounts assigned. It does not expire; a Page token dies every 60 days.
-   The Pages themselves do not need assigning — `config/brands.json` pins each
-   `ig_user_id`, so the publisher never relies on Page-based discovery.
-5. No App Review needed — with an admin role on the app, Development mode covers your
-   own accounts.
-
-Put the token in `.env` as `META_ACCESS_TOKEN` (the file is gitignored). `MEDIA_BASE_URL`
-is already set to the raw.githubusercontent prefix.
-
-## The scheduler
-
-A launchd agent runs the publisher every two minutes.
-
-**The project lives at `~/ig-publisher`, not in `~/Documents`, and must stay there.**
-macOS TCC blocks launchd agents from Documents, Desktop and Downloads — an agent pointed
-at a Documents path dies with `Operation not permitted` (exit 126) until `/bin/bash` is
-granted Full Disk Access. A folder directly in `$HOME` is unprotected, so no grant is
-needed. There is a symlink at the old Documents path for convenience; do not move the
-real directory back.
-
-```bash
-launchctl load  ~/Library/LaunchAgents/com.dkwegraphers.igpublisher.plist   # start
-launchctl unload ~/Library/LaunchAgents/com.dkwegraphers.igpublisher.plist  # stop
-launchctl list | grep igpublisher                                          # check
-tail -f state/publish.log                                                  # watch
-```
-
-The log only records runs that published something or failed — "nothing due" fires around
-720 times a day and would bury everything that matters.
-
-`.github/workflows/publish.yml` is present but its cron is **commented out**. Two
-schedulers would double-post, because each keeps its own `state/published.json` and
-neither would see the other's. It is kept as a documented fallback for a stretch where
-the Mac will be off.
+1. Meta app: **Other → Business**, linked to the Business Portfolio that owns the
+   Page and the Instagram account. Add the **Instagram** and **Facebook Login for
+   Business** products.
+2. The Instagram account must be **Business** (not Creator) and linked to its Page.
