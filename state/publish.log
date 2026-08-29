@@ -1,0 +1,88 @@
+[2026-08-26T08:30:07Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-001 -> @dklightingpk media 17971440837131106
+[2026-08-26T09:42:42Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-002 -> @dklightingpk media 18117761671846917
+[2026-08-26T10:55:16Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-003 -> @dklightingpk media 18106562402119550
+[2026-08-26T12:27:39Z] Traceback (most recent call last):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1346, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1257, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1303, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1252, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1012, in _send_output
+    self.send(msg)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 952, in send
+    self.connect()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1419, in connect
+    super().connect()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 923, in connect
+    self.sock = self._create_connection(
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 822, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 953, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/m1pro/ig-publisher/scripts/publish.py", line 324, in <module>
+    sys.exit(main())
+  File "/Users/m1pro/ig-publisher/scripts/publish.py", line 284, in main
+    accounts = resolve_accounts()
+  File "/Users/m1pro/ig-publisher/scripts/publish.py", line 79, in resolve_accounts
+    pages = api("me/accounts", {"fields": "id,name,instagram_business_account{id,username}"})
+  File "/Users/m1pro/ig-publisher/scripts/publish.py", line 69, in api
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1349, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+[2026-08-26T13:10:41Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-004 -> @dklightingpk media 18429297922183677
+[2026-08-26T13:21:02Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-005 -> @dklightingpk media 18111960235820733
+[2026-08-26T14:35:13Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-006 -> @dklightingpk media 18112888825794710
+[2026-08-26T16:28:05Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-007 -> @dklightingpk media 18125882359758535
+[2026-08-26T17:01:24Z] via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-008 -> @dklightingpk media 18341851585269152
+[2026-08-27T11:34:24Z] SKIP  dk-009 was due 2026-08-27 11:18 PKT, outside the 3:00:00 grace window
+via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-010 -> @dklightingpk media 18114320513470597
+[2026-08-27T15:42:24Z] SKIP  dk-009 was due 2026-08-27 11:18 PKT, outside the 3:00:00 grace window
+via Pages: @wegraphers_; pinned: dklightingpk
+OK    dk-011 -> @dklightingpk media 18170070082449772
+[2026-08-27T19:08:08Z] via Pages: @dklightingpk, @wegraphers_; pinned: dklightingpk
+OK    dk-009 -> @dklightingpk media 18111773570009259
+[2026-08-28T07:32:09Z] via Pages: @dklightingpk, @wegraphers_; pinned: dklightingpk
+OK    dk-012 -> @dklightingpk media 18113492503966632
+[2026-08-28T11:34:02Z] via Pages: @dklightingpk, @wegraphers_; pinned: dklightingpk
+OK    dk-013 -> @dklightingpk media 18091314119552610
+[2026-08-28T15:42:55Z] via Pages: @dklightingpk, @wegraphers_; pinned: dklightingpk
+OK    dk-014 -> @dklightingpk media 17978518260087216
+[2026-08-29T12:34:03Z] SKIP  dk-015 [ig+fb] was due 2026-08-29 11:21 PKT, outside the 3:00:00 grace window
+via Pages: @dklightingpk, @wegraphers_; pinned: dklightingpk
+OK    dk-016 -> @dklightingpk media 18348791821220919
+OK    dk-016 -> fb:103512834602763 post 103512834602763_1593106662511748
+[2026-08-29T16:44:56Z] SKIP  dk-015 [ig+fb] was due 2026-08-29 11:21 PKT, outside the 3:00:00 grace window
+via Pages: @dklightingpk, @wegraphers_; pinned: dklightingpk
+OK    dk-017 -> @dklightingpk media 18088360445188049
+OK    dk-017 -> fb:103512834602763 post 103512834602763_1593279122494502
+[2026-08-29T20:08:54Z] via Pages: @dklightingpk, @wegraphers_; pinned: dklightingpk
+OK    dk-015 -> @dklightingpk media 17918078739430408
+OK    dk-015 -> fb:103512834602763 post 103512834602763_1593397012482713
