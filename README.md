@@ -21,6 +21,11 @@ media and the two-stage normalize/brand pipeline that produced it. Git history
 the endpoint. So the schedule is ours (`state/schedule.json`) and a launchd agent
 on this Mac is the clock, firing every two minutes.
 
+Two agents run, both in `~/Library/LaunchAgents` and neither tracked here:
+`com.dklighting.igpublisher` (every 2 min, the clock) and
+`com.dklighting.fbbackfill` (3x daily, drains the Facebook backlog). They are
+machine state, not repo state — rebuild them from the wrappers in `scripts/`.
+
 **Images need a public URL.** The API does not accept an image upload — you give
 it an `image_url` and Meta's servers fetch it, so every JPEG must sit at a public
 HTTPS address. (Google Drive share links do not work: Drive answers with an HTML
@@ -43,7 +48,7 @@ exactly periodic posting pattern is cheap for spam heuristics to spot.
 The Page went live on 29 August, part-way through the run. `fb_start_date` in
 `config/brands.json` is the cut-off: posts scheduled on or after it are mirrored
 in the same tick that publishes them to Instagram, and the 14 that went out
-before it are left to `facebook_sync.py --backfill` at the end of the run.
+before it are drained by `facebook_sync.py --backfill`, three a day.
 
 That split is not cosmetic. The tick has a three-hour grace window and skips
 anything older, so without the cut-off it would re-examine every early post on
@@ -80,9 +85,31 @@ what is live on Instagram**:
 Both are read-only until `--apply` is passed. Run `--reconcile` every week or so
 during the run, and once more after the backfill.
 
-The backfill also spaces its posts (`--delay`, default 45s). A hundred photos
-posted to a Page inside a minute is a cheap thing for spam heuristics to spot,
-and it is the one run that would otherwise do exactly that.
+### The backfill drips, it does not dump
+
+`com.dklighting.fbbackfill` fires three times a day and mirrors **one** post per
+firing, via `scripts/run_fb_backfill.sh`. The backlog therefore drains at the
+same three-a-day rate Instagram posts at, and both accounts get something every
+day with Instagram always ahead of Facebook.
+
+Running the whole backlog in one go is what `--apply` does without `--limit`,
+and it is the wrong shape: a dozen photos on a Page that sees three a day is a
+burst, and bursts are what spam heuristics are built to notice. The `--delay`
+spacing (45s, only between posts within one run) softens that but does not fix
+it. One post per firing does.
+
+Draining slowly has a second payoff. `--backfill` re-reads the live Instagram
+account on every run, so a still deleted by hand between firings is skipped
+rather than mirrored — the slower it drains, the more of those it catches.
+
+**The wrapper takes the publisher's lock**, `state/.publish.lock`.
+`facebook_sync.py` writes `state/published.json` with no lock of its own, so a
+firing overlapping a publishing tick could read the file, be overtaken, and
+write back a copy missing the id the tick had just recorded. A lost id reads as
+"never posted", and the next run posts it again. The agent's times (13:15,
+18:15, 22:15 PKT) already sit in the gaps between the Instagram slots and their
+±12 min of jitter, so the two should never meet; the lock is the guarantee, the
+timing is the plan.
 
 ## The grid is the layout unit
 
@@ -166,7 +193,8 @@ python3 scripts/publish.py                 # publish what is due, both platforms
 
 python3 scripts/facebook_sync.py --status     # per-post: live on IG? mirrored to FB?
 python3 scripts/facebook_sync.py --backfill   # mirror the Instagram-only posts (dry)
-python3 scripts/facebook_sync.py --backfill --apply
+python3 scripts/facebook_sync.py --backfill --apply --limit 1   # one, as the agent does
+python3 scripts/facebook_sync.py --backfill --apply             # ALL of them, in one burst
 python3 scripts/facebook_sync.py --reconcile  # FB posts whose IG twin was deleted (dry)
 python3 scripts/facebook_sync.py --reconcile --apply
 ```
