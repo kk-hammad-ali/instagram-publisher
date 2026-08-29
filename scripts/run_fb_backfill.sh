@@ -26,6 +26,22 @@ fi
 mkdir -p state
 LOG="state/publish.log"
 
+# Jitter, so the Page does not post at the same three clock times every day.
+# launchd only fires on a fixed calendar, so the variation has to happen here:
+# each firing waits a random 0-60 minutes before doing anything. The Instagram
+# side gets the same effect from build_schedule.py's +/-12 min, which is why its
+# slots read 11:39 one day and 11:37 the next.
+#
+# Its jitter is deterministic (seeded by post id) because rebuilding a schedule
+# must not move posts that already went out. Nothing here is rebuilt, so plain
+# randomness is fine and gives a wider spread.
+#
+# BEFORE the lock, never after. Sleeping with the lock held would stall the
+# every-two-minute publisher for up to an hour, which is the one thing this
+# script must not do.
+JITTER=$(( RANDOM * 3600 / 32768 ))
+sleep "$JITTER"
+
 # The SAME lock run_publish.sh takes, and for a sharper reason than that script
 # has. facebook_sync.py writes state/published.json without a lock of its own,
 # so a firing that overlapped a publishing tick could read the file, be
@@ -33,8 +49,10 @@ LOG="state/publish.log"
 # The lost id reads as "never posted", and the next run posts it again. A
 # duplicate is the one failure here that cannot be undone.
 #
-# The calendar times below already sit between the Instagram slots, so this
-# should never contend. This is the guarantee, not the plan.
+# The calendar times sit between the Instagram slots and stay there across the
+# full hour of jitter above (12:45-13:45, 17:30-18:30, 21:45-22:45 PKT against
+# Instagram's 11:18-11:42, 16:18-16:42, 20:18-20:42), so this should never
+# contend. This is the guarantee, not the plan.
 LOCK="state/.publish.lock"
 locked=""
 for _ in 1 2 3 4 5 6 7 8 9 10; do
@@ -59,6 +77,8 @@ if [ -z "$locked" ]; then
 fi
 trap 'rmdir "$LOCK" 2>/dev/null' EXIT INT TERM
 
+# --limit 1: one post per firing. Three firings a day, so Facebook moves at the
+# same three-a-day pace as Instagram and never in a burst.
 out="$(/usr/bin/env python3 scripts/facebook_sync.py --backfill --apply --limit 1 2>&1)"
 code=$?
 

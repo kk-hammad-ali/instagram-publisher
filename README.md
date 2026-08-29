@@ -92,6 +92,23 @@ firing, via `scripts/run_fb_backfill.sh`. The backlog therefore drains at the
 same three-a-day rate Instagram posts at, and both accounts get something every
 day with Instagram always ahead of Facebook.
 
+**Neither platform ever posts in bulk, and neither posts at a fixed time.**
+launchd only fires on a fixed calendar, so the wrapper waits a random 0-60
+minutes before doing anything — the plist times are the earliest, not the
+actual:
+
+| agent fires | posts between |
+|---|---|
+| 12:45 | 12:45 - 13:45 |
+| 17:30 | 17:30 - 18:30 |
+| 21:45 | 21:45 - 22:45 |
+
+Instagram gets the same effect from `build_schedule.py`'s ±12 min, baked into
+`state/schedule.json` at build time — which is why its slots read 11:39 one day
+and 11:37 the next. That jitter is deterministic, seeded by post id, because
+rebuilding a schedule must not move posts that already went out. The Facebook
+side rebuilds nothing, so plain randomness is fine and spreads wider.
+
 Running the whole backlog in one go is what `--apply` does without `--limit`,
 and it is the wrong shape: a dozen photos on a Page that sees three a day is a
 burst, and bursts are what spam heuristics are built to notice. The `--delay`
@@ -106,10 +123,14 @@ rather than mirrored — the slower it drains, the more of those it catches.
 `facebook_sync.py` writes `state/published.json` with no lock of its own, so a
 firing overlapping a publishing tick could read the file, be overtaken, and
 write back a copy missing the id the tick had just recorded. A lost id reads as
-"never posted", and the next run posts it again. The agent's times (13:15,
-18:15, 22:15 PKT) already sit in the gaps between the Instagram slots and their
-±12 min of jitter, so the two should never meet; the lock is the guarantee, the
+"never posted", and the next run posts it again. The agent's windows stay in the
+gaps between the Instagram slots across the full hour of jitter (12:45-13:45,
+17:30-18:30, 21:45-22:45 against Instagram's 11:18-11:42, 16:18-16:42,
+20:18-20:42), so the two should never meet; the lock is the guarantee, the
 timing is the plan.
+
+The wait happens *before* the lock is taken, never after. Sleeping with the lock
+held would stall the every-two-minute publisher for up to an hour.
 
 ## The grid is the layout unit
 
