@@ -115,6 +115,10 @@
       ],
       "ig_user_id": "17841414814224853",
       "handle_note": "Two DK accounts exist. @dklighitngpk (id 17841434610178612) is the older one - 8,771 followers, dklighting.com.pk - but its handle is misspelled. @dklightingpk is the correctly-spelled relaunch account and is the chosen target as of 2026-08-12.",
+      "fb_page_id": "103512834602763",
+      "fb_page_note": "The DK Lighting Facebook Page, @dklightingpk - same vanity name as the Instagram account, and linked to it (connected_instagram_account is 17841414814224853). Assigned to the Social-Up system user on 2026-08-28 with full tasks; before that the Page was not assigned at all, which is what id_note below is describing. 870 fans against Instagram's 12, so this is currently the larger of the two audiences. Pinned here for the same reason the Instagram id is: /me/accounts discovery breaks the moment an asset assignment changes.",
+      "fb_start_date": "2026-08-29",
+      "fb_start_date_note": "Facebook publishing applies to posts scheduled on or after this date. dk-001 to dk-011 went out on Instagram alone before the Page was reachable; they are deliberately NOT picked up by the every-two-minute tick, which would only log them as outside the grace window on every run. They are handled at the end of the run by 'facebook_sync.py --backfill', which checks each one is still live on Instagram before mirroring it.",
       "launch": {
         "date": "2026-08-27",
         "slots": [

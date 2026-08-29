@@ -12,6 +12,17 @@ Two publishing paths, because Instagram treats the media types differently:
   REELS  - supports resumable upload, so the file is pushed straight from this
            runner. No hosting needed for the videos at all.
 
+A brand carrying "fb_page_id" is mirrored to its Facebook Page in the same tick,
+from the same MEDIA_BASE_URL. The two platforms are tracked separately in
+state/published.json - one record per post, with an ig_media_id and an
+fb_post_id - so a failure on one does not block or re-fire the other.
+
+Facebook only applies from the brand's "fb_start_date". Posts older than that
+went out on Instagram alone and belong to scripts/facebook_sync.py --backfill,
+which checks each is still live on Instagram before mirroring it. Without that
+cut-off the tick would re-examine all of them every two minutes and log nothing
+but grace-window skips.
+
 Environment:
   META_ACCESS_TOKEN   required - system user token preferred (does not expire)
   MEDIA_BASE_URL      required for images - public HTTPS prefix for media/
@@ -53,14 +64,17 @@ PAUSED = {b.strip().lower() for b in os.environ.get("PAUSED_BRANDS", "").split("
 GRACE = timedelta(hours=3)
 
 
-def api(path, params=None, data=None, method=None, timeout=120):
+def api(path, params=None, data=None, method=None, timeout=120, token=None):
+    # token overrides the system user token. Page endpoints want a Page access
+    # token, which is fetched once per run by page_token() below.
+    tok = token or TOKEN
     url = f"{GRAPH}/{path.lstrip('/')}"
     params = dict(params or {})
-    params["access_token"] = TOKEN
+    params["access_token"] = tok
     body = None
     if data is not None:
         payload = dict(data)
-        payload["access_token"] = TOKEN
+        payload["access_token"] = tok
         body = urllib.parse.urlencode(payload).encode()
     else:
         url += "?" + urllib.parse.urlencode(params)
@@ -138,6 +152,66 @@ def wait_ready(cid, timeout=900):
     raise RuntimeError(f"container {cid} not ready after {timeout}s")
 
 
+_PAGE_TOKENS = {}
+
+
+def page_token(page_id):
+    """Fetch (and cache for this run) the Page access token for a Page.
+
+    Page publishing will not accept the system user token directly. The Page
+    token is derived from it, so it carries the same scopes and the same
+    non-expiry, and it is never written to disk.
+    """
+    if page_id not in _PAGE_TOKENS:
+        _PAGE_TOKENS[page_id] = api(page_id, {"fields": "access_token"})["access_token"]
+    return _PAGE_TOKENS[page_id]
+
+
+def publish_facebook(entry, page_id, caption):
+    """Post one still to a Facebook Page and return its post id.
+
+    /photos rather than /feed: /feed with a link renders a link preview card,
+    /photos uploads the image as the post itself, which is what the Instagram
+    side is doing. Meta fetches the URL, exactly as Instagram does, so this
+    needs no hosting beyond MEDIA_BASE_URL.
+
+    The response carries both an id (the photo) and a post_id (the Page post).
+    post_id is the one that can be read back from /{page}/posts and deleted, so
+    that is what gets recorded.
+    """
+    if entry["media_type"] != "IMAGE":
+        raise RuntimeError(
+            f"{entry['id']} is {entry['media_type']}; the Facebook path handles "
+            f"IMAGE only. All 122 DK posts are stills - if that changes, add the "
+            f"/videos endpoint here rather than letting this fall through."
+        )
+    if not MEDIA_BASE:
+        raise RuntimeError("MEDIA_BASE_URL is not set; Facebook photo posts need a public HTTPS URL")
+    res = api(f"{page_id}/photos", data={
+        "url": f"{MEDIA_BASE}/{entry['media']}",
+        "caption": caption,
+        "published": "true",
+    }, token=page_token(page_id))
+    return res.get("post_id") or res["id"]
+
+
+def facebook_page_for(entry, brands):
+    """The Page id this post should mirror to, or None.
+
+    None means "not Facebook's problem": the brand has no Page configured, or
+    the post is scheduled before the brand started on Facebook and so belongs
+    to the backfill instead.
+    """
+    cfg = brands.get(entry["brand"]) or {}
+    page_id = cfg.get("fb_page_id")
+    if not page_id:
+        return None
+    start = cfg.get("fb_start_date")
+    if start and entry["publish_at_pkt"][:10] < start:
+        return None
+    return page_id
+
+
 def build_caption(entry, tokens):
     text = entry["caption"]
     for k, v in tokens.items():
@@ -208,7 +282,9 @@ def publish_one(entry, accounts, tokens):
 
 def main():
     with open(os.path.join(ROOT, "config", "brands.json"), encoding="utf-8") as f:
-        tokens = json.load(f).get("tokens", {})
+        cfg = json.load(f)
+    tokens = cfg.get("tokens", {})
+    brands = cfg.get("brands", {})
 
     sched_path = os.path.join(ROOT, "state", "schedule.json")
     with open(sched_path, encoding="utf-8") as f:
@@ -219,7 +295,10 @@ def main():
     if os.path.exists(pub_path):
         with open(pub_path, encoding="utf-8") as f:
             published = json.load(f)
-    done = {e["id"] for e in published["posts"]}
+    # One record per post id, carrying both platforms. Records written before
+    # Facebook existed have no fb_post_id, which is exactly how the backfill
+    # finds them.
+    by_id = {e["id"]: e for e in published["posts"]}
 
     # --validate checks every queued post's caption and media up front, without
     # a token and without waiting for anything to fall due.
@@ -245,12 +324,20 @@ def main():
 
     now = datetime.now(timezone.utc)
     due, late, held = [], [], []
+    todo = {}  # post id -> ["ig", "fb"], whichever it still owes
     for e in sched["posts"]:
-        if e["id"] in done:
+        rec = by_id.get(e["id"])
+        want = []
+        if not (rec and rec.get("ig_media_id")):
+            want.append("ig")
+        if facebook_page_for(e, brands) and not (rec and rec.get("fb_post_id")):
+            want.append("fb")
+        if not want:
             continue
         when = datetime.strptime(e["publish_at_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
         if when > now:
             continue
+        todo[e["id"]] = want
         # Held before the late check on purpose: a paused brand must not accrue
         # SKIP lines on every tick, and its posts stay unpublished either way.
         if e["brand"] in PAUSED:
@@ -261,7 +348,8 @@ def main():
             late.append(e)
 
     for e in late:
-        print(f"SKIP  {e['id']} was due {e['publish_at_pkt']} PKT, outside the {GRACE} grace window")
+        print(f"SKIP  {e['id']} [{'+'.join(todo[e['id']])}] was due {e['publish_at_pkt']} PKT, "
+              f"outside the {GRACE} grace window")
 
     # Appended to the nothing-due line rather than printed on its own, so the
     # wrapper's "nothing due" filter still keeps a paused brand out of the log.
@@ -291,31 +379,69 @@ def main():
     if DRY:
         for e in due:
             caption = build_caption(e, tokens)
-            print(f"DRY   {e['id']} -> @{e['handle']} ({e['media_type']}) "
+            targets = [f"@{e['handle']}" if t == "ig" else f"fb:{facebook_page_for(e, brands)}"
+                       for t in todo[e["id"]]]
+            print(f"DRY   {e['id']} -> {' + '.join(targets)} ({e['media_type']}) "
                   f"{len(caption)} chars, {e['media']}")
         return 0
 
     failures = 0
     for e in due:
-        try:
-            media_id, ig_id = publish_one(e, accounts, tokens)
-            published["posts"].append({
+        rec = by_id.get(e["id"])
+        # A brand-new record is held back until something actually publishes.
+        # Appending it up front would leave an id-less stub behind whenever
+        # Instagram fails, and facebook_sync.py reads a record with no
+        # ig_media_id as a post that was deleted from the account.
+        fresh = rec is None
+        if fresh:
+            rec = {
                 "id": e["id"],
                 "brand": e["brand"],
                 "handle": e["handle"],
-                "ig_media_id": media_id,
-                "ig_user_id": ig_id,
                 "scheduled_pkt": e["publish_at_pkt"],
-                "published_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            })
-            print(f"OK    {e['id']} -> @{e['handle']} media {media_id}")
-        except Exception as exc:  # keep going; one bad post must not stall the queue
-            failures += 1
-            print(f"FAIL  {e['id']}: {exc}", file=sys.stderr)
+            }
 
-    with open(pub_path, "w", encoding="utf-8") as f:
-        json.dump(published, f, indent=2, ensure_ascii=False)
-        f.write("\n")
+        # Each platform is attempted independently and recorded the moment it
+        # succeeds. A post that reaches Instagram and then fails on Facebook
+        # keeps its ig_media_id, so the retry two minutes later posts only the
+        # Facebook half - the one failure here that cannot be undone is a
+        # duplicate, and this is what prevents it.
+        for target in todo[e["id"]]:
+            try:
+                caption = build_caption(e, tokens)
+                if target == "ig":
+                    media_id, ig_id = publish_one(e, accounts, tokens)
+                    rec["ig_media_id"] = media_id
+                    rec["ig_user_id"] = ig_id
+                    rec["published_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+                    print(f"OK    {e['id']} -> @{e['handle']} media {media_id}")
+                    if fresh:
+                        by_id[e["id"]] = rec
+                        published["posts"].append(rec)
+                        fresh = False
+                else:
+                    page_id = facebook_page_for(e, brands)
+                    post_id = publish_facebook(e, page_id, caption)
+                    rec["fb_post_id"] = post_id
+                    rec["fb_page_id"] = page_id
+                    rec["fb_published_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+                    print(f"OK    {e['id']} -> fb:{page_id} post {post_id}")
+                    if fresh:
+                        by_id[e["id"]] = rec
+                        published["posts"].append(rec)
+                        fresh = False
+            except Exception as exc:  # keep going; one bad post must not stall the queue
+                failures += 1
+                print(f"FAIL  {e['id']} [{target}]: {exc}", file=sys.stderr)
+                # Instagram failing means there is nothing to mirror yet.
+                if target == "ig":
+                    break
+
+        # Flushed inside the loop, not after it: a crash or a launchd kill
+        # between two posts must not lose the ids of the ones already out.
+        with open(pub_path, "w", encoding="utf-8") as f:
+            json.dump(published, f, indent=2, ensure_ascii=False)
+            f.write("\n")
 
     return 1 if failures else 0
 
