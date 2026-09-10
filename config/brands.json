@@ -135,6 +135,38 @@
         "jitter_note": "No jitter is applied to these. They are already hand-spaced, and a +/-12 minute nudge on eight posts in one day can collide two of them.",
         "today_note": "Run `python3 scripts/build_schedule.py --launch-today` to re-date this to today and respace the slots between now and 22:00. Needed because a slot more than three hours old is skipped rather than fired late, so a stale launch date silently drops most of day one."
       }
+    },
+    "goftech": {
+      "name": "GOFTECH",
+      "handle": "goftech.co",
+      "ig_user_id": "17841461273836275",
+      "media_type": "STORIES",
+      "start_date": "2026-09-11",
+      "slots": [
+        "09:30",
+        "12:30",
+        "15:30",
+        "18:30",
+        "21:30"
+      ],
+      "slot_rationale": {
+        "_note": "Five a day, three hours apart, spanning the working day. Stories expire after 24h and are seen mostly in the hour or two after posting, so unlike the feed there is no grid to compose and no penalty for frequency - the only thing that matters is being in the tray when somebody opens the app. Spreading five entry points across the day beats stacking them, because a stacked set is one tap-through that a follower either catches or misses entirely.",
+        "09:30": "Morning commute and first check of the day.",
+        "12:30": "Lunch. The reliable midday window in Pakistan.",
+        "15:30": "Afternoon lull.",
+        "18:30": "Commute home, the start of the evening rise.",
+        "21:30": "After dinner - the strongest consumer window, and the same one DK uses."
+      },
+      "no_facebook_note": "Deliberately no fb_page_id. The Content Publishing API has no Facebook Story equivalent this publisher targets, and publish.py's facebook_page_for() returns None for STORIES regardless, so these are Instagram-only.",
+      "stories_note": "Published as flat 1080x1920 JPEGs with no caption. The API offers no stickers, no polls, no link sticker, no @mention or hashtag stickers, and no way to reshare a feed post to a story - anything interactive has to be baked into the artwork and will not be tappable.",
+      "source_note": "Artwork rendered by the goftech-social studio into out/client-stories, out/review-stories and out/service-stories. Instagram rejects PNG, so scripts/import_stories.sh converts to JPEG q88 into media/goftech/<set> - PNG is the studio's output format and the conversion is not reversible in place, so the studio copy stays the master. Files starting with '_' are studio contact sheets, not stories, and are skipped: service-stories/_all.jpg is 1598x930.",
+      "sets": {
+        "clients": "\"we built this with <client>\" logo cards - 40, one per client on the studio roster",
+        "review": "verbatim five-star Google reviews, reviewer named - 6",
+        "service": "one card per service GOFTECH sells - 11"
+      },
+      "rotation_note": "The three sets are interleaved by fractional position rather than run in blocks, so a day comes out as roughly three client cards with a service and a review among them. Eight consecutive days of logo cards is the failure mode this avoids.",
+      "label_note": "The client cards were re-rendered on 2026-09-10 with the badge reading CLIENTS and the footer 'Client Series'; they previously said COLLAB / 'Collab Series'. These are clients, not collaborators. out/collab-stories holds the superseded PNGs. The script headline still reads 'we built this with' - unchanged, and the one place the old framing survives."
     }
   },
   "tokens": {

@@ -11,6 +11,8 @@ Two publishing paths, because Instagram treats the media types differently:
            with an HTML interstitial rather than image bytes.
   REELS  - supports resumable upload, so the file is pushed straight from this
            runner. No hosting needed for the videos at all.
+  STORIES- same hosted-JPEG path as IMAGE, with media_type=STORIES and no
+           caption. Instagram-only; expires after 24h; no stickers or links.
 
 A brand carrying "fb_page_id" is mirrored to its Facebook Page in the same tick,
 from the same MEDIA_BASE_URL. The two platforms are tracked separately in
@@ -202,6 +204,10 @@ def facebook_page_for(entry, brands):
     the post is scheduled before the brand started on Facebook and so belongs
     to the backfill instead.
     """
+    # Instagram stories have no Facebook equivalent this publisher targets, so
+    # they are Instagram-only regardless of what the brand has configured.
+    if entry["media_type"] == "STORIES":
+        return None
     cfg = brands.get(entry["brand"]) or {}
     page_id = cfg.get("fb_page_id")
     if not page_id:
@@ -213,6 +219,11 @@ def facebook_page_for(entry, brands):
 
 
 def build_caption(entry, tokens):
+    # A story has no caption. The API rejects "caption" on a STORIES container
+    # and there is nowhere on a story for text to render, so queue entries carry
+    # none and this returns empty rather than raising KeyError.
+    if entry["media_type"] == "STORIES":
+        return ""
     text = entry["caption"]
     for k, v in tokens.items():
         # An empty value is left unsubstituted on purpose, so the placeholder
@@ -270,10 +281,15 @@ def publish_one(entry, accounts, tokens):
             raise RuntimeError(f"missing media file: {entry['media']}")
         if not MEDIA_BASE:
             raise RuntimeError("MEDIA_BASE_URL is not set; image posts need a public HTTPS URL")
-        cid = api(f"{ig_id}/media", data={
-            "image_url": f"{MEDIA_BASE}/{entry['media']}",
-            "caption": caption,
-        })["id"]
+        fields = {"image_url": f"{MEDIA_BASE}/{entry['media']}"}
+        if entry["media_type"] == "STORIES":
+            # No caption key at all - sending an empty one is still an error.
+            # Stickers, polls, links and @mentions are not offered by the API,
+            # so a story published here is the flat image and nothing else.
+            fields["media_type"] = "STORIES"
+        else:
+            fields["caption"] = caption
+        cid = api(f"{ig_id}/media", data=fields)["id"]
         wait_ready(cid)
 
     res = api(f"{ig_id}/media_publish", data={"creation_id": cid})

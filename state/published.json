@@ -20,7 +20,11 @@
       "ig_media_id": "18117761671846917",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-26 14:41",
-      "published_utc": "2026-08-26T09:42:42Z"
+      "published_utc": "2026-08-26T09:42:42Z",
+      "fb_post_id": "103512834602763_1593786439110437",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-30T08:22:44Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-003",
@@ -29,7 +33,11 @@
       "ig_media_id": "18106562402119550",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-26 15:54",
-      "published_utc": "2026-08-26T10:55:16Z"
+      "published_utc": "2026-08-26T10:55:16Z",
+      "fb_post_id": "103512834602763_1594219165733831",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-30T19:53:21Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-004",
@@ -47,7 +55,11 @@
       "ig_media_id": "18111960235820733",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-26 18:20",
-      "published_utc": "2026-08-26T13:21:02Z"
+      "published_utc": "2026-08-26T13:21:02Z",
+      "fb_post_id": "103512834602763_1594606862361728",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-31T08:44:45Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-006",
@@ -56,7 +68,11 @@
       "ig_media_id": "18112888825794710",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-26 19:33",
-      "published_utc": "2026-08-26T14:35:13Z"
+      "published_utc": "2026-08-26T14:35:13Z",
+      "fb_post_id": "103512834602763_1594738495681898",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-31T12:31:12Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-007",
@@ -74,7 +90,11 @@
       "ig_media_id": "18341851585269152",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-26 21:59",
-      "published_utc": "2026-08-26T17:01:24Z"
+      "published_utc": "2026-08-26T17:01:24Z",
+      "fb_post_id": "103512834602763_1594939672328447",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-31T17:12:33Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-010",
@@ -83,7 +103,11 @@
       "ig_media_id": "18114320513470597",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-27 16:27",
-      "published_utc": "2026-08-27T11:34:24Z"
+      "published_utc": "2026-08-27T11:34:24Z",
+      "fb_post_id": "103512834602763_1595617348927346",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-01T13:22:43Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-011",
@@ -92,7 +116,11 @@
       "ig_media_id": "18170070082449772",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-27 20:41",
-      "published_utc": "2026-08-27T15:42:24Z"
+      "published_utc": "2026-08-27T15:42:24Z",
+      "fb_post_id": "103512834602763_1595772698911811",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-01T17:01:25Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-009",
@@ -101,7 +129,11 @@
       "ig_media_id": "18111773570009259",
       "ig_user_id": "17841414814224853",
       "scheduled_pkt": "2026-08-28 00:06",
-      "published_utc": "2026-08-27T19:08:08Z"
+      "published_utc": "2026-08-27T19:08:08Z",
+      "fb_post_id": "103512834602763_1595437785611969",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-01T08:42:08Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-012",
@@ -110,7 +142,11 @@
       "scheduled_pkt": "2026-08-28 11:21",
       "ig_media_id": "18113492503966632",
       "ig_user_id": "17841414814224853",
-      "published_utc": "2026-08-28T07:32:09Z"
+      "published_utc": "2026-08-28T07:32:09Z",
+      "fb_post_id": "103512834602763_1596310102191404",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-02T09:39:13Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-013",
@@ -119,7 +155,11 @@
       "scheduled_pkt": "2026-08-28 16:31",
       "ig_media_id": "18091314119552610",
       "ig_user_id": "17841414814224853",
-      "published_utc": "2026-08-28T11:34:02Z"
+      "published_utc": "2026-08-28T11:34:02Z",
+      "fb_post_id": "103512834602763_1596426488846432",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-02T12:42:54Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-014",
@@ -128,7 +168,11 @@
       "scheduled_pkt": "2026-08-28 20:41",
       "ig_media_id": "17978518260087216",
       "ig_user_id": "17841414814224853",
-      "published_utc": "2026-08-28T15:42:55Z"
+      "published_utc": "2026-08-28T15:42:55Z",
+      "fb_post_id": "103512834602763_1596706508818430",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-02T19:47:21Z",
+      "fb_backfilled": true
     },
     {
       "id": "dk-016",
@@ -165,6 +209,402 @@
       "fb_post_id": "103512834602763_1593397012482713",
       "fb_page_id": "103512834602763",
       "fb_published_utc": "2026-08-29T20:08:54Z"
+    },
+    {
+      "id": "dk-018",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-08-30 11:39",
+      "ig_media_id": "18122520898853623",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-08-30T06:39:35Z",
+      "fb_post_id": "103512834602763_1593729835782764",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-30T06:39:41Z"
+    },
+    {
+      "id": "dk-019",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-08-30 16:25",
+      "ig_media_id": "18147392149488606",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-08-30T11:26:52Z",
+      "fb_post_id": "103512834602763_1593897515765996",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-30T11:26:57Z"
+    },
+    {
+      "id": "dk-020",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-08-30 20:41",
+      "ig_media_id": "18180222955420150",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-08-30T15:42:28Z",
+      "fb_post_id": "103512834602763_1594068582415556",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-30T15:42:34Z"
+    },
+    {
+      "id": "dk-021",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-08-31 11:37",
+      "ig_media_id": "18135794863620187",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-08-31T06:38:31Z",
+      "fb_post_id": "103512834602763_1594539179035163",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-31T06:38:37Z"
+    },
+    {
+      "id": "dk-022",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-08-31 16:21",
+      "ig_media_id": "18150010333538722",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-08-31T11:22:15Z",
+      "fb_post_id": "103512834602763_1594694832352931",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-31T11:22:21Z"
+    },
+    {
+      "id": "dk-023",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-08-31 20:23",
+      "ig_media_id": "18627567052031141",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-08-31T15:23:38Z",
+      "fb_post_id": "103512834602763_1594865509002530",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-08-31T15:23:44Z"
+    },
+    {
+      "id": "dk-024",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-01 11:39",
+      "ig_media_id": "18106789025164135",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-01T07:28:22Z",
+      "fb_post_id": "103512834602763_1595397168949364",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-01T07:28:28Z"
+    },
+    {
+      "id": "dk-025",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-01 16:38",
+      "ig_media_id": "18380759422230237",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-01T11:40:06Z",
+      "fb_post_id": "103512834602763_1595545942267820",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-01T11:40:12Z"
+    },
+    {
+      "id": "dk-026",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-01 20:30",
+      "ig_media_id": "17923403019421502",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-01T15:31:40Z",
+      "fb_post_id": "103512834602763_1595708768918204",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-01T15:31:47Z"
+    },
+    {
+      "id": "dk-027",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-02 11:31",
+      "ig_media_id": "18354015211246949",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-02T06:46:31Z",
+      "fb_post_id": "103512834602763_1596216745534073",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-02T06:46:38Z"
+    },
+    {
+      "id": "dk-028",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-02 16:40",
+      "ig_media_id": "18141896185585284",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-02T11:41:13Z",
+      "fb_post_id": "103512834602763_1596385085517239",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-02T11:41:20Z"
+    },
+    {
+      "id": "dk-029",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-02 20:19",
+      "ig_media_id": "18165645118457811",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-02T15:20:48Z",
+      "fb_post_id": "103512834602763_1596537838835297",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-02T15:20:55Z"
+    },
+    {
+      "id": "dk-030",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-03 11:40",
+      "ig_media_id": "18340747306254561",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-03T06:40:46Z",
+      "fb_post_id": "103512834602763_1597034188785662",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-03T06:40:52Z"
+    },
+    {
+      "id": "dk-031",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-03 16:40",
+      "ig_media_id": "17989864911044995",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-03T12:08:35Z",
+      "fb_post_id": "103512834602763_1597236235432124",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-03T12:08:40Z"
+    },
+    {
+      "id": "dk-032",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-03 20:31",
+      "ig_media_id": "18114361379069461",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-03T15:31:55Z",
+      "fb_post_id": "103512834602763_1597380025417745",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-03T15:32:01Z"
+    },
+    {
+      "id": "dk-033",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-04 11:24",
+      "ig_media_id": "18075347039401245",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-04T07:43:08Z",
+      "fb_post_id": "103512834602763_1597936918695389",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-04T07:43:15Z"
+    },
+    {
+      "id": "dk-034",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-04 16:33",
+      "ig_media_id": "17895214392670366",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-04T11:34:54Z",
+      "fb_post_id": "103512834602763_1598083245347423",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-04T11:35:01Z"
+    },
+    {
+      "id": "dk-035",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-04 20:23",
+      "ig_media_id": "17907293544535953",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-04T15:23:33Z",
+      "fb_post_id": "103512834602763_1598247551997659",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-04T15:23:39Z"
+    },
+    {
+      "id": "dk-037",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-05 16:27",
+      "ig_media_id": "18128543662667484",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-05T11:28:03Z",
+      "fb_post_id": "103512834602763_1598934625262285",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-05T11:28:09Z"
+    },
+    {
+      "id": "dk-038",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-05 20:36",
+      "ig_media_id": "18015539003925579",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-05T15:36:17Z",
+      "fb_post_id": "103512834602763_1599103245245423",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-05T15:36:23Z"
+    },
+    {
+      "id": "dk-039",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-06 11:36",
+      "ig_media_id": "18111989714095974",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-06T07:32:25Z",
+      "fb_post_id": "103512834602763_1599623901860024",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-06T07:32:30Z"
+    },
+    {
+      "id": "dk-040",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-06 16:21",
+      "ig_media_id": "17987364249109854",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-06T11:21:49Z",
+      "fb_post_id": "103512834602763_1599760561846358",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-06T11:21:54Z"
+    },
+    {
+      "id": "dk-041",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-06 20:33",
+      "ig_media_id": "18131357002635668",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-06T15:56:34Z",
+      "fb_post_id": "103512834602763_1599952228493858",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-06T15:56:39Z"
+    },
+    {
+      "id": "dk-042",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-07 11:34",
+      "ig_media_id": "18115901125755484",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-07T06:34:32Z",
+      "fb_post_id": "103512834602763_1600425925113155",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-07T06:34:37Z"
+    },
+    {
+      "id": "dk-043",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-07 16:41",
+      "ig_media_id": "18126172957756488",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-07T11:42:28Z",
+      "fb_post_id": "103512834602763_1600611251761289",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-07T11:42:34Z"
+    },
+    {
+      "id": "dk-044",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-07 20:33",
+      "ig_media_id": "18095877881179538",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-07T15:51:14Z",
+      "fb_post_id": "103512834602763_1600781981744216",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-07T15:51:21Z"
+    },
+    {
+      "id": "dk-045",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-08 11:39",
+      "ig_media_id": "18089922764669442",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-08T06:39:48Z",
+      "fb_post_id": "103512834602763_1601279198361161",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-08T06:39:52Z"
+    },
+    {
+      "id": "dk-046",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-08 16:18",
+      "ig_media_id": "18108833096519408",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-08T11:19:15Z",
+      "fb_post_id": "103512834602763_1601445188344562",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-08T11:19:22Z"
+    },
+    {
+      "id": "dk-047",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-08 20:22",
+      "ig_media_id": "18125678209859183",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-08T15:47:15Z",
+      "fb_post_id": "103512834602763_1601633164992431",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-08T15:47:22Z"
+    },
+    {
+      "id": "dk-048",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-09 11:39",
+      "ig_media_id": "18141222583594866",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-09T06:49:28Z",
+      "fb_post_id": "103512834602763_1602125931609821",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-09T06:49:34Z"
+    },
+    {
+      "id": "dk-049",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-09 16:39",
+      "ig_media_id": "18099683165637662",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-09T11:40:27Z",
+      "fb_post_id": "103512834602763_1602303598258721",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-09T11:40:32Z"
+    },
+    {
+      "id": "dk-050",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-09 20:24",
+      "ig_media_id": "17912246784498470",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-09T15:29:10Z",
+      "fb_post_id": "103512834602763_1602470068242074",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-09T15:29:16Z"
+    },
+    {
+      "id": "dk-051",
+      "brand": "dk",
+      "handle": "dklightingpk",
+      "scheduled_pkt": "2026-09-10 11:25",
+      "ig_media_id": "18625831462052958",
+      "ig_user_id": "17841414814224853",
+      "published_utc": "2026-09-10T06:26:40Z",
+      "fb_post_id": "103512834602763_1602981728190908",
+      "fb_page_id": "103512834602763",
+      "fb_published_utc": "2026-09-10T06:26:46Z"
     }
   ],
   "note": "Empty: the account is being repopulated from the August 2026 catalogue."
