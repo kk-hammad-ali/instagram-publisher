@@ -18,14 +18,20 @@ Idempotent: the merge order is fixed by set size, and the jitter is seeded by
 post id, so re-running never re-dates a story that has already gone out.
 Non-goftech posts in the schedule are preserved untouched.
 
-  python3 scripts/build_stories.py [--start YYYY-MM-DD] [--dry]
+  python3 scripts/build_stories.py [--start YYYY-MM-DD] [--today] [--dry]
+
+--today starts the run this afternoon instead of tomorrow morning. The fixed
+slots are no use for a same-day start - the early ones have already passed - so
+day one is respaced evenly between roughly half an hour from now and the last
+slot of the day, and takes no jitter, exactly as DK's launch burst does. Every
+following day uses the configured slots as normal.
 """
 
 import hashlib
 import json
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BRAND = "goftech"
@@ -78,16 +84,47 @@ def interleave(sets):
     return [(name, item) for _, _, name, item in scored]
 
 
+def today_slots(slots, now):
+    """Slot times for a same-day start: evenly spaced from soon to the last slot.
+
+    Returns fewer than the usual number only if the day is too far gone to fit
+    them at a sane spacing - five stories crammed into the last hour reads worse
+    than three properly spread.
+    """
+    first = (now + timedelta(minutes=40)).replace(second=0, microsecond=0)
+    first += timedelta(minutes=(-first.minute) % 5)  # round up to the next 5 minutes
+    hh, mm = (int(x) for x in slots[-1].split(":"))
+    last = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
+    n = len(slots)
+    # Never tighter than 45 minutes apart.
+    while n > 1 and (last - first) / (n - 1) < timedelta(minutes=45):
+        n -= 1
+    if last <= first:
+        return []
+    step = (last - first) / (n - 1) if n > 1 else timedelta(0)
+    return [(first + step * i).strftime("%H:%M") for i in range(n)]
+
+
 def main():
     start = sys.argv[sys.argv.index("--start") + 1] if "--start" in sys.argv else None
     dry = "--dry" in sys.argv
+    same_day = "--today" in sys.argv
 
     with open(os.path.join(ROOT, "config", "brands.json"), encoding="utf-8") as f:
         cfg = json.load(f)
     brand = cfg["brands"][BRAND]
     slots = brand["slots"]
     spread = cfg.get("jitter_minutes", 0)
-    day0 = datetime.strptime(start or brand["start_date"], "%Y-%m-%d")
+    now = datetime.now(timezone.utc).replace(tzinfo=None) + PKT  # PKT wall clock
+    burst = []
+    if same_day:
+        burst = today_slots(slots, now)
+        if not burst:
+            print("too late in the day for a same-day start", file=sys.stderr)
+            return 1
+        day0 = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    else:
+        day0 = datetime.strptime(start or brand["start_date"], "%Y-%m-%d")
 
     sets = {}
     for name in SETS:
@@ -100,12 +137,21 @@ def main():
         sets[name] = files
 
     posts = []
-    for i, (name, fname) in enumerate(interleave(sets)):
-        day, slot = divmod(i, len(slots))
+    queue = interleave(sets)
+    for i, (name, fname) in enumerate(queue):
+        if burst and i < len(burst):
+            day, slot, times, nudge = 0, i, burst, 0
+        else:
+            # Day one may have taken a short burst, so the steady run starts the
+            # next day and is offset by however many that burst consumed.
+            day, slot = divmod(i - len(burst), len(slots))
+            day += 1 if burst else 0
+            times, nudge = slots, None
         pid = f"{BRAND}-{name}-{fname[:2]}"
-        hh, mm = (int(x) for x in slots[slot].split(":"))
+        hh, mm = (int(x) for x in times[slot].split(":"))
         when = day0.replace(hour=hh, minute=mm) + timedelta(days=day)
-        when += timedelta(minutes=jitter(pid, spread))
+        # The burst is already hand-spaced; jitter could collide two of them.
+        when += timedelta(minutes=jitter(pid, spread) if nudge is None else nudge)
         posts.append({
             "id": pid,
             "brand": BRAND,

@@ -3304,8 +3304,8 @@
       "set": "clients",
       "media": "media/goftech/clients/01-edutalent.jpg",
       "label": "EduTalent",
-      "publish_at_pkt": "2026-09-11T09:21:00",
-      "publish_at_utc": "2026-09-11T04:21:00Z"
+      "publish_at_pkt": "2026-09-10T13:50:00",
+      "publish_at_utc": "2026-09-10T08:50:00Z"
     },
     {
       "id": "goftech-clients-02",
@@ -3317,8 +3317,8 @@
       "set": "clients",
       "media": "media/goftech/clients/02-elite-it.jpg",
       "label": "Elite IT",
-      "publish_at_pkt": "2026-09-11T12:30:00",
-      "publish_at_utc": "2026-09-11T07:30:00Z"
+      "publish_at_pkt": "2026-09-10T15:45:00",
+      "publish_at_utc": "2026-09-10T10:45:00Z"
     },
     {
       "id": "goftech-service-01",
@@ -3330,8 +3330,8 @@
       "set": "service",
       "media": "media/goftech/service/01-mobile-app-development.jpg",
       "label": "Mobile App Development",
-      "publish_at_pkt": "2026-09-11T15:24:00",
-      "publish_at_utc": "2026-09-11T10:24:00Z"
+      "publish_at_pkt": "2026-09-10T17:40:00",
+      "publish_at_utc": "2026-09-10T12:40:00Z"
     },
     {
       "id": "goftech-clients-03",
@@ -3343,8 +3343,8 @@
       "set": "clients",
       "media": "media/goftech/clients/03-ixplix.jpg",
       "label": "Ixplix",
-      "publish_at_pkt": "2026-09-11T18:26:00",
-      "publish_at_utc": "2026-09-11T13:26:00Z"
+      "publish_at_pkt": "2026-09-10T19:35:00",
+      "publish_at_utc": "2026-09-10T14:35:00Z"
     },
     {
       "id": "goftech-review-01",
@@ -3356,8 +3356,8 @@
       "set": "review",
       "media": "media/goftech/review/01-sajadullah-noonari.jpg",
       "label": "Sajadullah Noonari",
-      "publish_at_pkt": "2026-09-11T21:19:00",
-      "publish_at_utc": "2026-09-11T16:19:00Z"
+      "publish_at_pkt": "2026-09-10T21:30:00",
+      "publish_at_utc": "2026-09-10T16:30:00Z"
     },
     {
       "id": "goftech-clients-04",
@@ -3369,8 +3369,8 @@
       "set": "clients",
       "media": "media/goftech/clients/04-scrubly.jpg",
       "label": "Scrubly",
-      "publish_at_pkt": "2026-09-12T09:30:00",
-      "publish_at_utc": "2026-09-12T04:30:00Z"
+      "publish_at_pkt": "2026-09-11T09:30:00",
+      "publish_at_utc": "2026-09-11T04:30:00Z"
     },
     {
       "id": "goftech-clients-05",
@@ -3382,8 +3382,8 @@
       "set": "clients",
       "media": "media/goftech/clients/05-rapid-kill.jpg",
       "label": "Rapid Kill",
-      "publish_at_pkt": "2026-09-12T12:25:00",
-      "publish_at_utc": "2026-09-12T07:25:00Z"
+      "publish_at_pkt": "2026-09-11T12:25:00",
+      "publish_at_utc": "2026-09-11T07:25:00Z"
     },
     {
       "id": "goftech-service-02",
@@ -3395,8 +3395,8 @@
       "set": "service",
       "media": "media/goftech/service/02-custom-web-development.jpg",
       "label": "Custom Web Development",
-      "publish_at_pkt": "2026-09-12T15:38:00",
-      "publish_at_utc": "2026-09-12T10:38:00Z"
+      "publish_at_pkt": "2026-09-11T15:38:00",
+      "publish_at_utc": "2026-09-11T10:38:00Z"
     },
     {
       "id": "goftech-clients-06",
@@ -3408,8 +3408,8 @@
       "set": "clients",
       "media": "media/goftech/clients/06-readura.jpg",
       "label": "Readura",
-      "publish_at_pkt": "2026-09-12T18:36:00",
-      "publish_at_utc": "2026-09-12T13:36:00Z"
+      "publish_at_pkt": "2026-09-11T18:36:00",
+      "publish_at_utc": "2026-09-11T13:36:00Z"
     },
     {
       "id": "goftech-clients-07",
@@ -3421,8 +3421,8 @@
       "set": "clients",
       "media": "media/goftech/clients/07-niazi-tours-and-travels.jpg",
       "label": "Niazi Tours & Travels",
-      "publish_at_pkt": "2026-09-12T21:32:00",
-      "publish_at_utc": "2026-09-12T16:32:00Z"
+      "publish_at_pkt": "2026-09-11T21:32:00",
+      "publish_at_utc": "2026-09-11T16:32:00Z"
     },
     {
       "id": "goftech-clients-08",
@@ -3434,8 +3434,8 @@
       "set": "clients",
       "media": "media/goftech/clients/08-king-driving-school.jpg",
       "label": "King Driving School",
-      "publish_at_pkt": "2026-09-13T09:22:00",
-      "publish_at_utc": "2026-09-13T04:22:00Z"
+      "publish_at_pkt": "2026-09-12T09:22:00",
+      "publish_at_utc": "2026-09-12T04:22:00Z"
     },
     {
       "id": "goftech-clients-09",
@@ -3447,8 +3447,8 @@
       "set": "clients",
       "media": "media/goftech/clients/09-qalb-e-saleem.jpg",
       "label": "Qalb-e-Saleem",
-      "publish_at_pkt": "2026-09-13T12:36:00",
-      "publish_at_utc": "2026-09-13T07:36:00Z"
+      "publish_at_pkt": "2026-09-12T12:36:00",
+      "publish_at_utc": "2026-09-12T07:36:00Z"
     },
     {
       "id": "goftech-service-03",
@@ -3460,8 +3460,8 @@
       "set": "service",
       "media": "media/goftech/service/03-shopify-development.jpg",
       "label": "Shopify Development",
-      "publish_at_pkt": "2026-09-13T15:36:00",
-      "publish_at_utc": "2026-09-13T10:36:00Z"
+      "publish_at_pkt": "2026-09-12T15:36:00",
+      "publish_at_utc": "2026-09-12T10:36:00Z"
     },
     {
       "id": "goftech-clients-10",
@@ -3473,8 +3473,8 @@
       "set": "clients",
       "media": "media/goftech/clients/10-just-book.jpg",
       "label": "Just Book",
-      "publish_at_pkt": "2026-09-13T18:39:00",
-      "publish_at_utc": "2026-09-13T13:39:00Z"
+      "publish_at_pkt": "2026-09-12T18:39:00",
+      "publish_at_utc": "2026-09-12T13:39:00Z"
     },
     {
       "id": "goftech-review-02",
@@ -3486,8 +3486,8 @@
       "set": "review",
       "media": "media/goftech/review/02-husnain-fiaz.jpg",
       "label": "Husnain Fiaz",
-      "publish_at_pkt": "2026-09-13T21:41:00",
-      "publish_at_utc": "2026-09-13T16:41:00Z"
+      "publish_at_pkt": "2026-09-12T21:41:00",
+      "publish_at_utc": "2026-09-12T16:41:00Z"
     },
     {
       "id": "goftech-clients-11",
@@ -3499,8 +3499,8 @@
       "set": "clients",
       "media": "media/goftech/clients/11-royal-travel.jpg",
       "label": "Royal Travel",
-      "publish_at_pkt": "2026-09-14T09:35:00",
-      "publish_at_utc": "2026-09-14T04:35:00Z"
+      "publish_at_pkt": "2026-09-13T09:35:00",
+      "publish_at_utc": "2026-09-13T04:35:00Z"
     },
     {
       "id": "goftech-clients-12",
@@ -3512,8 +3512,8 @@
       "set": "clients",
       "media": "media/goftech/clients/12-flight-catcher-uk.jpg",
       "label": "Flight Catcher UK",
-      "publish_at_pkt": "2026-09-14T12:32:00",
-      "publish_at_utc": "2026-09-14T07:32:00Z"
+      "publish_at_pkt": "2026-09-13T12:32:00",
+      "publish_at_utc": "2026-09-13T07:32:00Z"
     },
     {
       "id": "goftech-clients-13",
@@ -3525,8 +3525,8 @@
       "set": "clients",
       "media": "media/goftech/clients/13-blessing-enterprise.jpg",
       "label": "Blessing Enterprise",
-      "publish_at_pkt": "2026-09-14T15:25:00",
-      "publish_at_utc": "2026-09-14T10:25:00Z"
+      "publish_at_pkt": "2026-09-13T15:25:00",
+      "publish_at_utc": "2026-09-13T10:25:00Z"
     },
     {
       "id": "goftech-service-04",
@@ -3538,8 +3538,8 @@
       "set": "service",
       "media": "media/goftech/service/04-wordpress-development.jpg",
       "label": "WordPress Development",
-      "publish_at_pkt": "2026-09-14T18:26:00",
-      "publish_at_utc": "2026-09-14T13:26:00Z"
+      "publish_at_pkt": "2026-09-13T18:26:00",
+      "publish_at_utc": "2026-09-13T13:26:00Z"
     },
     {
       "id": "goftech-clients-14",
@@ -3551,8 +3551,8 @@
       "set": "clients",
       "media": "media/goftech/clients/14-tools-gard.jpg",
       "label": "Tools Gard",
-      "publish_at_pkt": "2026-09-14T21:27:00",
-      "publish_at_utc": "2026-09-14T16:27:00Z"
+      "publish_at_pkt": "2026-09-13T21:27:00",
+      "publish_at_utc": "2026-09-13T16:27:00Z"
     },
     {
       "id": "goftech-clients-15",
@@ -3564,8 +3564,8 @@
       "set": "clients",
       "media": "media/goftech/clients/15-spacr.jpg",
       "label": "Spacr",
-      "publish_at_pkt": "2026-09-15T09:25:00",
-      "publish_at_utc": "2026-09-15T04:25:00Z"
+      "publish_at_pkt": "2026-09-14T09:25:00",
+      "publish_at_utc": "2026-09-14T04:25:00Z"
     },
     {
       "id": "goftech-clients-16",
@@ -3577,8 +3577,8 @@
       "set": "clients",
       "media": "media/goftech/clients/16-victoria-construction.jpg",
       "label": "Victoria Construction",
-      "publish_at_pkt": "2026-09-15T12:37:00",
-      "publish_at_utc": "2026-09-15T07:37:00Z"
+      "publish_at_pkt": "2026-09-14T12:37:00",
+      "publish_at_utc": "2026-09-14T07:37:00Z"
     },
     {
       "id": "goftech-service-05",
@@ -3590,8 +3590,8 @@
       "set": "service",
       "media": "media/goftech/service/05-ai-automation.jpg",
       "label": "AI Automation",
-      "publish_at_pkt": "2026-09-15T15:32:00",
-      "publish_at_utc": "2026-09-15T10:32:00Z"
+      "publish_at_pkt": "2026-09-14T15:32:00",
+      "publish_at_utc": "2026-09-14T10:32:00Z"
     },
     {
       "id": "goftech-clients-17",
@@ -3603,8 +3603,8 @@
       "set": "clients",
       "media": "media/goftech/clients/17-dqcb.jpg",
       "label": "DQCB",
-      "publish_at_pkt": "2026-09-15T18:28:00",
-      "publish_at_utc": "2026-09-15T13:28:00Z"
+      "publish_at_pkt": "2026-09-14T18:28:00",
+      "publish_at_utc": "2026-09-14T13:28:00Z"
     },
     {
       "id": "goftech-review-03",
@@ -3616,8 +3616,8 @@
       "set": "review",
       "media": "media/goftech/review/03-alan-bos.jpg",
       "label": "Alan Bos",
-      "publish_at_pkt": "2026-09-15T21:18:00",
-      "publish_at_utc": "2026-09-15T16:18:00Z"
+      "publish_at_pkt": "2026-09-14T21:18:00",
+      "publish_at_utc": "2026-09-14T16:18:00Z"
     },
     {
       "id": "goftech-clients-18",
@@ -3629,8 +3629,8 @@
       "set": "clients",
       "media": "media/goftech/clients/18-lotthub.jpg",
       "label": "Lotthub",
-      "publish_at_pkt": "2026-09-16T09:22:00",
-      "publish_at_utc": "2026-09-16T04:22:00Z"
+      "publish_at_pkt": "2026-09-15T09:22:00",
+      "publish_at_utc": "2026-09-15T04:22:00Z"
     },
     {
       "id": "goftech-clients-19",
@@ -3642,8 +3642,8 @@
       "set": "clients",
       "media": "media/goftech/clients/19-elodie.jpg",
       "label": "Elodie",
-      "publish_at_pkt": "2026-09-16T12:36:00",
-      "publish_at_utc": "2026-09-16T07:36:00Z"
+      "publish_at_pkt": "2026-09-15T12:36:00",
+      "publish_at_utc": "2026-09-15T07:36:00Z"
     },
     {
       "id": "goftech-clients-20",
@@ -3655,8 +3655,8 @@
       "set": "clients",
       "media": "media/goftech/clients/20-gulf-wall-arts.jpg",
       "label": "Gulf Wall Arts",
-      "publish_at_pkt": "2026-09-16T15:31:00",
-      "publish_at_utc": "2026-09-16T10:31:00Z"
+      "publish_at_pkt": "2026-09-15T15:31:00",
+      "publish_at_utc": "2026-09-15T10:31:00Z"
     },
     {
       "id": "goftech-service-06",
@@ -3668,8 +3668,8 @@
       "set": "service",
       "media": "media/goftech/service/06-ui-ux-design.jpg",
       "label": "UI/UX Design",
-      "publish_at_pkt": "2026-09-16T18:21:00",
-      "publish_at_utc": "2026-09-16T13:21:00Z"
+      "publish_at_pkt": "2026-09-15T18:21:00",
+      "publish_at_utc": "2026-09-15T13:21:00Z"
     },
     {
       "id": "goftech-clients-21",
@@ -3681,8 +3681,8 @@
       "set": "clients",
       "media": "media/goftech/clients/21-honesty-laundry.jpg",
       "label": "Honesty Laundry",
-      "publish_at_pkt": "2026-09-16T21:35:00",
-      "publish_at_utc": "2026-09-16T16:35:00Z"
+      "publish_at_pkt": "2026-09-15T21:35:00",
+      "publish_at_utc": "2026-09-15T16:35:00Z"
     },
     {
       "id": "goftech-clients-22",
@@ -3694,8 +3694,8 @@
       "set": "clients",
       "media": "media/goftech/clients/22-pejo-it-services.jpg",
       "label": "Pejo IT Services",
-      "publish_at_pkt": "2026-09-17T09:21:00",
-      "publish_at_utc": "2026-09-17T04:21:00Z"
+      "publish_at_pkt": "2026-09-16T09:21:00",
+      "publish_at_utc": "2026-09-16T04:21:00Z"
     },
     {
       "id": "goftech-clients-23",
@@ -3707,8 +3707,8 @@
       "set": "clients",
       "media": "media/goftech/clients/23-rocky-best-buds.jpg",
       "label": "Rocky Best Buds",
-      "publish_at_pkt": "2026-09-17T12:30:00",
-      "publish_at_utc": "2026-09-17T07:30:00Z"
+      "publish_at_pkt": "2026-09-16T12:30:00",
+      "publish_at_utc": "2026-09-16T07:30:00Z"
     },
     {
       "id": "goftech-review-04",
@@ -3720,8 +3720,8 @@
       "set": "review",
       "media": "media/goftech/review/04-hafiz-usman-zafar.jpg",
       "label": "Hafiz Usman Zafar",
-      "publish_at_pkt": "2026-09-17T15:29:00",
-      "publish_at_utc": "2026-09-17T10:29:00Z"
+      "publish_at_pkt": "2026-09-16T15:29:00",
+      "publish_at_utc": "2026-09-16T10:29:00Z"
     },
     {
       "id": "goftech-clients-24",
@@ -3733,8 +3733,8 @@
       "set": "clients",
       "media": "media/goftech/clients/24-shahida-couture.jpg",
       "label": "Shahida Couture",
-      "publish_at_pkt": "2026-09-17T18:37:00",
-      "publish_at_utc": "2026-09-17T13:37:00Z"
+      "publish_at_pkt": "2026-09-16T18:37:00",
+      "publish_at_utc": "2026-09-16T13:37:00Z"
     },
     {
       "id": "goftech-service-07",
@@ -3746,8 +3746,8 @@
       "set": "service",
       "media": "media/goftech/service/07-website-maintenance.jpg",
       "label": "Website Maintenance",
-      "publish_at_pkt": "2026-09-17T21:42:00",
-      "publish_at_utc": "2026-09-17T16:42:00Z"
+      "publish_at_pkt": "2026-09-16T21:42:00",
+      "publish_at_utc": "2026-09-16T16:42:00Z"
     },
     {
       "id": "goftech-clients-25",
@@ -3759,8 +3759,8 @@
       "set": "clients",
       "media": "media/goftech/clients/25-organic-origin.jpg",
       "label": "Organic Origin",
-      "publish_at_pkt": "2026-09-18T09:38:00",
-      "publish_at_utc": "2026-09-18T04:38:00Z"
+      "publish_at_pkt": "2026-09-17T09:38:00",
+      "publish_at_utc": "2026-09-17T04:38:00Z"
     },
     {
       "id": "goftech-clients-26",
@@ -3772,8 +3772,8 @@
       "set": "clients",
       "media": "media/goftech/clients/26-menpapper.jpg",
       "label": "Menpapper",
-      "publish_at_pkt": "2026-09-18T12:34:00",
-      "publish_at_utc": "2026-09-18T07:34:00Z"
+      "publish_at_pkt": "2026-09-17T12:34:00",
+      "publish_at_utc": "2026-09-17T07:34:00Z"
     },
     {
       "id": "goftech-clients-27",
@@ -3785,8 +3785,8 @@
       "set": "clients",
       "media": "media/goftech/clients/27-danni.jpg",
       "label": "Danni",
-      "publish_at_pkt": "2026-09-18T15:40:00",
-      "publish_at_utc": "2026-09-18T10:40:00Z"
+      "publish_at_pkt": "2026-09-17T15:40:00",
+      "publish_at_utc": "2026-09-17T10:40:00Z"
     },
     {
       "id": "goftech-service-08",
@@ -3798,8 +3798,8 @@
       "set": "service",
       "media": "media/goftech/service/08-seo.jpg",
       "label": "SEO",
-      "publish_at_pkt": "2026-09-18T18:26:00",
-      "publish_at_utc": "2026-09-18T13:26:00Z"
+      "publish_at_pkt": "2026-09-17T18:26:00",
+      "publish_at_utc": "2026-09-17T13:26:00Z"
     },
     {
       "id": "goftech-clients-28",
@@ -3811,8 +3811,8 @@
       "set": "clients",
       "media": "media/goftech/clients/28-maee.jpg",
       "label": "Maee",
-      "publish_at_pkt": "2026-09-18T21:39:00",
-      "publish_at_utc": "2026-09-18T16:39:00Z"
+      "publish_at_pkt": "2026-09-17T21:39:00",
+      "publish_at_utc": "2026-09-17T16:39:00Z"
     },
     {
       "id": "goftech-clients-29",
@@ -3824,8 +3824,8 @@
       "set": "clients",
       "media": "media/goftech/clients/29-avw.jpg",
       "label": "AVW",
-      "publish_at_pkt": "2026-09-19T09:22:00",
-      "publish_at_utc": "2026-09-19T04:22:00Z"
+      "publish_at_pkt": "2026-09-18T09:22:00",
+      "publish_at_utc": "2026-09-18T04:22:00Z"
     },
     {
       "id": "goftech-clients-30",
@@ -3837,8 +3837,8 @@
       "set": "clients",
       "media": "media/goftech/clients/30-fleamail.jpg",
       "label": "FleaMail",
-      "publish_at_pkt": "2026-09-19T12:18:00",
-      "publish_at_utc": "2026-09-19T07:18:00Z"
+      "publish_at_pkt": "2026-09-18T12:18:00",
+      "publish_at_utc": "2026-09-18T07:18:00Z"
     },
     {
       "id": "goftech-review-05",
@@ -3850,8 +3850,8 @@
       "set": "review",
       "media": "media/goftech/review/05-muhammad-ubaidullah-saad-berg.jpg",
       "label": "Muhammad Ubaidullah (Saad Berg)",
-      "publish_at_pkt": "2026-09-19T15:28:00",
-      "publish_at_utc": "2026-09-19T10:28:00Z"
+      "publish_at_pkt": "2026-09-18T15:28:00",
+      "publish_at_utc": "2026-09-18T10:28:00Z"
     },
     {
       "id": "goftech-clients-31",
@@ -3863,8 +3863,8 @@
       "set": "clients",
       "media": "media/goftech/clients/31-gts-auto-repair.jpg",
       "label": "GTS Auto Repair",
-      "publish_at_pkt": "2026-09-19T18:26:00",
-      "publish_at_utc": "2026-09-19T13:26:00Z"
+      "publish_at_pkt": "2026-09-18T18:26:00",
+      "publish_at_utc": "2026-09-18T13:26:00Z"
     },
     {
       "id": "goftech-service-09",
@@ -3876,8 +3876,8 @@
       "set": "service",
       "media": "media/goftech/service/09-google-ads.jpg",
       "label": "Google Ads",
-      "publish_at_pkt": "2026-09-19T21:21:00",
-      "publish_at_utc": "2026-09-19T16:21:00Z"
+      "publish_at_pkt": "2026-09-18T21:21:00",
+      "publish_at_utc": "2026-09-18T16:21:00Z"
     },
     {
       "id": "goftech-clients-32",
@@ -3889,8 +3889,8 @@
       "set": "clients",
       "media": "media/goftech/clients/32-nawaz-institute.jpg",
       "label": "Nawaz Institute",
-      "publish_at_pkt": "2026-09-20T09:36:00",
-      "publish_at_utc": "2026-09-20T04:36:00Z"
+      "publish_at_pkt": "2026-09-19T09:36:00",
+      "publish_at_utc": "2026-09-19T04:36:00Z"
     },
     {
       "id": "goftech-clients-33",
@@ -3902,8 +3902,8 @@
       "set": "clients",
       "media": "media/goftech/clients/33-arian-rugs.jpg",
       "label": "Arian Rugs",
-      "publish_at_pkt": "2026-09-20T12:29:00",
-      "publish_at_utc": "2026-09-20T07:29:00Z"
+      "publish_at_pkt": "2026-09-19T12:29:00",
+      "publish_at_utc": "2026-09-19T07:29:00Z"
     },
     {
       "id": "goftech-clients-34",
@@ -3915,8 +3915,8 @@
       "set": "clients",
       "media": "media/goftech/clients/34-nubba-sleep.jpg",
       "label": "Nubba Sleep",
-      "publish_at_pkt": "2026-09-20T15:31:00",
-      "publish_at_utc": "2026-09-20T10:31:00Z"
+      "publish_at_pkt": "2026-09-19T15:31:00",
+      "publish_at_utc": "2026-09-19T10:31:00Z"
     },
     {
       "id": "goftech-clients-35",
@@ -3928,8 +3928,8 @@
       "set": "clients",
       "media": "media/goftech/clients/35-lavender-laundry.jpg",
       "label": "Lavender Laundry",
-      "publish_at_pkt": "2026-09-20T18:23:00",
-      "publish_at_utc": "2026-09-20T13:23:00Z"
+      "publish_at_pkt": "2026-09-19T18:23:00",
+      "publish_at_utc": "2026-09-19T13:23:00Z"
     },
     {
       "id": "goftech-service-10",
@@ -3941,8 +3941,8 @@
       "set": "service",
       "media": "media/goftech/service/10-meta-ads.jpg",
       "label": "Meta Ads",
-      "publish_at_pkt": "2026-09-20T21:25:00",
-      "publish_at_utc": "2026-09-20T16:25:00Z"
+      "publish_at_pkt": "2026-09-19T21:25:00",
+      "publish_at_utc": "2026-09-19T16:25:00Z"
     },
     {
       "id": "goftech-clients-36",
@@ -3954,8 +3954,8 @@
       "set": "clients",
       "media": "media/goftech/clients/36-alizahy-chauffeur.jpg",
       "label": "Alizahy Chauffeur",
-      "publish_at_pkt": "2026-09-21T09:29:00",
-      "publish_at_utc": "2026-09-21T04:29:00Z"
+      "publish_at_pkt": "2026-09-20T09:29:00",
+      "publish_at_utc": "2026-09-20T04:29:00Z"
     },
     {
       "id": "goftech-clients-37",
@@ -3967,8 +3967,8 @@
       "set": "clients",
       "media": "media/goftech/clients/37-shehminas.jpg",
       "label": "Shehmina's",
-      "publish_at_pkt": "2026-09-21T12:21:00",
-      "publish_at_utc": "2026-09-21T07:21:00Z"
+      "publish_at_pkt": "2026-09-20T12:21:00",
+      "publish_at_utc": "2026-09-20T07:21:00Z"
     },
     {
       "id": "goftech-review-06",
@@ -3980,8 +3980,8 @@
       "set": "review",
       "media": "media/goftech/review/06-farhad-nazir.jpg",
       "label": "Farhad Nazir",
-      "publish_at_pkt": "2026-09-21T15:34:00",
-      "publish_at_utc": "2026-09-21T10:34:00Z"
+      "publish_at_pkt": "2026-09-20T15:34:00",
+      "publish_at_utc": "2026-09-20T10:34:00Z"
     },
     {
       "id": "goftech-clients-38",
@@ -3993,8 +3993,8 @@
       "set": "clients",
       "media": "media/goftech/clients/38-classic-cart.jpg",
       "label": "Classic Cart",
-      "publish_at_pkt": "2026-09-21T18:26:00",
-      "publish_at_utc": "2026-09-21T13:26:00Z"
+      "publish_at_pkt": "2026-09-20T18:26:00",
+      "publish_at_utc": "2026-09-20T13:26:00Z"
     },
     {
       "id": "goftech-service-11",
@@ -4006,8 +4006,8 @@
       "set": "service",
       "media": "media/goftech/service/11-consulting.jpg",
       "label": "Consulting",
-      "publish_at_pkt": "2026-09-21T21:41:00",
-      "publish_at_utc": "2026-09-21T16:41:00Z"
+      "publish_at_pkt": "2026-09-20T21:41:00",
+      "publish_at_utc": "2026-09-20T16:41:00Z"
     },
     {
       "id": "goftech-clients-39",
@@ -4019,8 +4019,8 @@
       "set": "clients",
       "media": "media/goftech/clients/39-l-bank.jpg",
       "label": "L Bank",
-      "publish_at_pkt": "2026-09-22T09:21:00",
-      "publish_at_utc": "2026-09-22T04:21:00Z"
+      "publish_at_pkt": "2026-09-21T09:21:00",
+      "publish_at_utc": "2026-09-21T04:21:00Z"
     },
     {
       "id": "goftech-clients-40",
@@ -4032,8 +4032,8 @@
       "set": "clients",
       "media": "media/goftech/clients/40-flybeep.jpg",
       "label": "Flybeep",
-      "publish_at_pkt": "2026-09-22T12:34:00",
-      "publish_at_utc": "2026-09-22T07:34:00Z"
+      "publish_at_pkt": "2026-09-21T12:34:00",
+      "publish_at_utc": "2026-09-21T07:34:00Z"
     }
   ]
 }
