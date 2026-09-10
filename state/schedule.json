@@ -3304,8 +3304,8 @@
       "set": "clients",
       "media": "media/goftech/clients/01-edutalent.jpg",
       "label": "EduTalent",
-      "publish_at_pkt": "2026-09-10T13:50:00",
-      "publish_at_utc": "2026-09-10T08:50:00Z"
+      "publish_at_pkt": "2026-09-10T13:12:00",
+      "publish_at_utc": "2026-09-10T08:12:00Z"
     },
     {
       "id": "goftech-clients-02",
@@ -3317,8 +3317,8 @@
       "set": "clients",
       "media": "media/goftech/clients/02-elite-it.jpg",
       "label": "Elite IT",
-      "publish_at_pkt": "2026-09-10T15:45:00",
-      "publish_at_utc": "2026-09-10T10:45:00Z"
+      "publish_at_pkt": "2026-09-10T15:16:00",
+      "publish_at_utc": "2026-09-10T10:16:00Z"
     },
     {
       "id": "goftech-service-01",
@@ -3330,8 +3330,8 @@
       "set": "service",
       "media": "media/goftech/service/01-mobile-app-development.jpg",
       "label": "Mobile App Development",
-      "publish_at_pkt": "2026-09-10T17:40:00",
-      "publish_at_utc": "2026-09-10T12:40:00Z"
+      "publish_at_pkt": "2026-09-10T17:21:00",
+      "publish_at_utc": "2026-09-10T12:21:00Z"
     },
     {
       "id": "goftech-clients-03",
@@ -3343,8 +3343,8 @@
       "set": "clients",
       "media": "media/goftech/clients/03-ixplix.jpg",
       "label": "Ixplix",
-      "publish_at_pkt": "2026-09-10T19:35:00",
-      "publish_at_utc": "2026-09-10T14:35:00Z"
+      "publish_at_pkt": "2026-09-10T19:25:00",
+      "publish_at_utc": "2026-09-10T14:25:00Z"
     },
     {
       "id": "goftech-review-01",

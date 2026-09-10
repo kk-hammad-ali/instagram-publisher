@@ -20,7 +20,9 @@ Non-goftech posts in the schedule are preserved untouched.
 
   python3 scripts/build_stories.py [--start YYYY-MM-DD] [--today] [--dry]
 
---today starts the run this afternoon instead of tomorrow morning. The fixed
+--today starts the run this afternoon instead of tomorrow morning, and
+--lead N sets how many minutes ahead the first story lands (default 40; use 1 to
+publish on the next tick). The fixed
 slots are no use for a same-day start - the early ones have already passed - so
 day one is respaced evenly between roughly half an hour from now and the last
 slot of the day, and takes no jitter, exactly as DK's launch burst does. Every
@@ -84,15 +86,16 @@ def interleave(sets):
     return [(name, item) for _, _, name, item in scored]
 
 
-def today_slots(slots, now):
+def today_slots(slots, now, lead=40):
     """Slot times for a same-day start: evenly spaced from soon to the last slot.
 
     Returns fewer than the usual number only if the day is too far gone to fit
     them at a sane spacing - five stories crammed into the last hour reads worse
     than three properly spread.
     """
-    first = (now + timedelta(minutes=40)).replace(second=0, microsecond=0)
-    first += timedelta(minutes=(-first.minute) % 5)  # round up to the next 5 minutes
+    first = (now + timedelta(minutes=lead)).replace(second=0, microsecond=0)
+    if lead >= 5:
+        first += timedelta(minutes=(-first.minute) % 5)  # round up to the next 5 minutes
     hh, mm = (int(x) for x in slots[-1].split(":"))
     last = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
     n = len(slots)
@@ -109,6 +112,9 @@ def main():
     start = sys.argv[sys.argv.index("--start") + 1] if "--start" in sys.argv else None
     dry = "--dry" in sys.argv
     same_day = "--today" in sys.argv
+    # How far ahead the first story of a same-day start is placed. The default
+    # leaves room to look at the queue before anything fires; --lead 1 is "go now".
+    lead = int(sys.argv[sys.argv.index("--lead") + 1]) if "--lead" in sys.argv else 40
 
     with open(os.path.join(ROOT, "config", "brands.json"), encoding="utf-8") as f:
         cfg = json.load(f)
@@ -118,7 +124,7 @@ def main():
     now = datetime.now(timezone.utc).replace(tzinfo=None) + PKT  # PKT wall clock
     burst = []
     if same_day:
-        burst = today_slots(slots, now)
+        burst = today_slots(slots, now, lead)
         if not burst:
             print("too late in the day for a same-day start", file=sys.stderr)
             return 1

@@ -247,3 +247,6 @@ OK    dk-050 -> fb:103512834602763 post 103512834602763_1602470068242074
 via Pages: @dklightingpk, @goftech.co, @wegraphers_; pinned: dklightingpk
 OK    dk-051 -> @dklightingpk media 18625831462052958
 OK    dk-051 -> fb:103512834602763 post 103512834602763_1602981728190908
+[2026-09-10T08:12:22Z] SKIP  dk-036 [ig+fb] was due 2026-09-05 11:31 PKT, outside the 3:00:00 grace window
+via Pages: @dklightingpk, @goftech.co, @wegraphers_; pinned: goftech.co
+OK    goftech-clients-01 -> @goftech.co media 18106549775140792
