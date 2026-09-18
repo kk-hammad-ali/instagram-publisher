@@ -4034,6 +4034,19 @@
       "label": "Flybeep",
       "publish_at_pkt": "2026-09-21T12:34:00",
       "publish_at_utc": "2026-09-21T07:34:00Z"
+    },
+    {
+      "id": "goftech-review-07",
+      "brand": "goftech",
+      "brand_name": "GOFTECH",
+      "handle": "goftech.co",
+      "ig_user_id": "17841461273836275",
+      "media_type": "STORIES",
+      "set": "review",
+      "media": "media/goftech/review/07-dr-fakhra-naeem-fcps.jpg",
+      "label": "Dr Fakhra Naeem (Scrubly app)",
+      "publish_at_pkt": "2026-09-22T15:38:00",
+      "publish_at_utc": "2026-09-22T10:38:00Z"
     }
   ]
 }

@@ -162,7 +162,7 @@
       "source_note": "Artwork rendered by the goftech-social studio into out/client-stories, out/review-stories and out/service-stories. Instagram rejects PNG, so scripts/import_stories.sh converts to JPEG q88 into media/goftech/<set> - PNG is the studio's output format and the conversion is not reversible in place, so the studio copy stays the master. Files starting with '_' are studio contact sheets, not stories, and are skipped: service-stories/_all.jpg is 1598x930.",
       "sets": {
         "clients": "\"we built this with <client>\" logo cards - 40, one per client on the studio roster",
-        "review": "verbatim five-star Google reviews, reviewer named - 6",
+        "review": "verbatim five-star Google reviews, reviewer named - 7",
         "service": "one card per service GOFTECH sells - 11"
       },
       "rotation_note": "The three sets are interleaved by fractional position rather than run in blocks, so a day comes out as roughly three client cards with a service and a review among them. Eight consecutive days of logo cards is the failure mode this avoids.",
